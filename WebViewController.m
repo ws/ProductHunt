@@ -26,11 +26,6 @@
     self.webView.scalesPageToFit = YES;
 }
 
-- (IBAction)onRefreshButtonPressed:(id)sender
-{
-    [self.webView reload];
-}
-
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -41,23 +36,11 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    self.navigationController.navigationBarHidden = YES;
-}
-
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (event.subtype == UIEventSubtypeMotionShake)
     {
-        if (self.navigationController.navigationBarHidden)
-        {
-            self.navigationController.navigationBarHidden = NO;
-        }
-        else
-        {
-            self.navigationController.navigationBarHidden = YES;
-        }
+        [self.webView reload];
     }
 }
 
