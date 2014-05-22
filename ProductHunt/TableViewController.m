@@ -9,6 +9,7 @@
 #import "TableViewController.h"
 #import "Post.h"
 #import "WebViewController.h"
+#import "CommentsViewController.h"
 
 @interface TableViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -28,9 +29,32 @@
 
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.tintColor = [UIColor orangeColor];
-//    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    //    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
     [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
+
+
+    UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+    longPressGestureRecognizer.minimumPressDuration = 2.0; //seconds
+    //    longPressGestureRecognizer.delegate = self;
+    [self.tableView addGestureRecognizer:longPressGestureRecognizer];
+    //    [longPressGestureRecognizer release];
+}
+
+- (void)longPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    CGPoint point = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+
+    if (indexPath == nil)
+    {
+        NSLog(@"long press on table view but not on a row");
+    }
+    else
+    {
+        NSLog(@"long press on table view at row %ld", (long)indexPath.row);
+        [self performSegueWithIdentifier:@"CommentSegue" sender:self];              //ERROR
+    }
 }
 
 - (void)updateTable
@@ -85,11 +109,33 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSInteger selectedRow = self.tableView.indexPathForSelectedRow.row;
-    Post *selectedPost = [self.posts objectAtIndex:selectedRow];
-    WebViewController *webViewController  = segue.destinationViewController;
-    webViewController.post = selectedPost;
+    if ([sender isKindOfClass:[UITableViewCell class]])
+    {
+        NSInteger selectedRow = self.tableView.indexPathForSelectedRow.row;
+        Post *selectedPost = [self.posts objectAtIndex:selectedRow];
+        WebViewController *webViewController  = segue.destinationViewController;
+        webViewController.post = selectedPost;
+    }
+    else
+    {
+        NSInteger selectedRow = self.tableView.indexPathForSelectedRow.row;
+        Post *selectedPost = [self.posts objectAtIndex:selectedRow];
+        CommentsViewController *commentsViewController  = segue.destinationViewController;
+        commentsViewController.post = selectedPost;
+        NSLog(@"%@",commentsViewController.post.commentLink);
+    }
 }
+
+- (IBAction)unwind:(UIStoryboardSegue *)segue
+{
+
+}
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//
+//    return 50; // Normal height
+//}
 
 @end
 

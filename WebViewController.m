@@ -44,4 +44,23 @@
     }
 }
 
+- (IBAction)share:(id)sender
+{
+    NSString *title = self.post.title;
+    NSString *subtitle = self.post.subtitle;
+    NSString *text = [[title stringByAppendingString:@" - "] stringByAppendingString:subtitle];
+    NSURL *url = [NSURL URLWithString:self.post.commentLink];
+    //    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.post.imageLink]]];
+
+    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[text, url]
+                                                                             applicationActivities:nil];
+
+    controller.excludedActivityTypes = @[UIActivityTypeAssignToContact,
+                                         UIActivityTypeSaveToCameraRoll,
+                                         UIActivityTypePostToFlickr,
+                                         UIActivityTypePostToVimeo];
+
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
 @end

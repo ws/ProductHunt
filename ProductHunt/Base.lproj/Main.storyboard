@@ -27,7 +27,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="4iN-hk-XOR"/>
+                    <navigationItem key="navigationItem" id="4iN-hk-XOR">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="qoC-ei-dpV">
+                            <connections>
+                                <action selector="share:" destination="aOl-wZ-ege" id="k6o-WS-dPa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="webView" destination="Djw-QX-K9T" id="VBQ-ii-7WT"/>
                     </connections>
@@ -83,11 +89,53 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="MCE-sH-xqm" id="Oev-Hi-QCf"/>
+                        <segue destination="MOX-AV-Mpn" kind="modal" identifier="CommentSegue" id="SfZ-0c-ctA"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C5w-q1-hWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1286" y="-67"/>
+        </scene>
+        <!--Comments View Controller-->
+        <scene sceneID="r1A-fk-4rv">
+            <objects>
+                <viewController id="MOX-AV-Mpn" customClass="CommentsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2Oh-NP-UcO"/>
+                        <viewControllerLayoutGuide type="bottom" id="wwE-pT-x6f"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0Qp-ZS-QkF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cdg-YE-wbu">
+                                <rect key="frame" x="0.0" y="58" width="320" height="510"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DB9-Uh-H4C">
+                                <rect key="frame" x="252" y="20" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="c7j-vF-Q0A" kind="unwind" unwindAction="unwind:" id="77E-Oz-zbr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="DB9-Uh-H4C" id="Jgz-Dl-HYx"/>
+                        <outlet property="webView" destination="Cdg-YE-wbu" id="fWW-up-Hh4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lof-VG-lgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="c7j-vF-Q0A" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1286" y="675"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MyQ-W6-RKM">
