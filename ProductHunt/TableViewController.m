@@ -36,9 +36,7 @@
 
     UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
     longPressGestureRecognizer.minimumPressDuration = 2.0; //seconds
-    //    longPressGestureRecognizer.delegate = self;
     [self.tableView addGestureRecognizer:longPressGestureRecognizer];
-    //    [longPressGestureRecognizer release];
 }
 
 - (void)longPress:(UILongPressGestureRecognizer *)gestureRecognizer
@@ -96,7 +94,11 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"postCellID"];
     Post *post = [self.posts objectAtIndex:indexPath.row];
     cell.textLabel.text = post.title;
+//    cell.textLabel.textColor = [UIColor orangeColor];
     cell.detailTextLabel.text = post.subtitle;
+    cell.detailTextLabel.textColor = [UIColor grayColor];
+    cell.detailTextLabel.numberOfLines = 2;
+    cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
     if (self.showImgs)
     {
@@ -131,11 +133,11 @@
 
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//
-//    return 50; // Normal height
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    return 63; // 44 is Normal height
+}
 
 @end
 
