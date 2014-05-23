@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>39EC3A45-C36D-45B7-99AF-20FB8261DC71</string>
+	<string>BAA2B862-5B04-4591-BE92-0944CCDA9874</string>
 	<key>IDESourceControlProjectName</key>
 	<string>ProductHunt</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>27E6DC32-744A-4CC5-9FC8-0E67E50124C1</key>
-		<string>https://github.com/sapanbhuta/ProductHunt.git</string>
+		<key>9BB75DB4-ABE2-4DC1-869C-5CCABDD1F2CB</key>
+		<string>https://github.com/sapanbhuta/ProductHunt</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>ProductHunt.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>27E6DC32-744A-4CC5-9FC8-0E67E50124C1</key>
+		<key>9BB75DB4-ABE2-4DC1-869C-5CCABDD1F2CB</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/sapanbhuta/ProductHunt.git</string>
+	<string>https://github.com/sapanbhuta/ProductHunt</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>27E6DC32-744A-4CC5-9FC8-0E67E50124C1</string>
+	<string>9BB75DB4-ABE2-4DC1-869C-5CCABDD1F2CB</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>27E6DC32-744A-4CC5-9FC8-0E67E50124C1</string>
+			<string>9BB75DB4-ABE2-4DC1-869C-5CCABDD1F2CB</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ProductHunt</string>
 		</dict>

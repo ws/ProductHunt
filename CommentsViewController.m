@@ -11,6 +11,7 @@
 @interface CommentsViewController () <UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 @end
 
 @implementation CommentsViewController
@@ -33,6 +34,20 @@
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
+    if ([self.webView canGoBack])
+    {
+        self.backButton.enabled = NO;
+    }
+    else
+    {
+        self.backButton.enabled = YES;
+    }
+}
+
+- (IBAction)onBackPress:(id)sender
+{
+    [self.webView goBack];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event

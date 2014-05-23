@@ -6,6 +6,12 @@
 //  Copyright (c) 2014 SapanBhuta. All rights reserved.
 //
 
+//  Features to add:
+//
+//  Intro Page View
+//  Slide on cell to save link
+
+
 #import "TableViewController.h"
 #import "Post.h"
 #import "WebViewController.h"
@@ -15,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property NSMutableArray *posts;
 @property BOOL showImgs;
+@property NSIndexPath *longPressPath;
 @end
 
 @implementation TableViewController
@@ -22,20 +29,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.posts = [[NSMutableArray alloc] init];
     self.showImgs = false;
-    [self getPostsFromApi];
-
+    [self updateTable];
 
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.tintColor = [UIColor orangeColor];
-    //    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
     [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
 
-
     UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-    longPressGestureRecognizer.minimumPressDuration = 2.0; //seconds
+    longPressGestureRecognizer.minimumPressDuration = 0.5; //seconds
     [self.tableView addGestureRecognizer:longPressGestureRecognizer];
 }
 
@@ -43,14 +46,9 @@
 {
     CGPoint point = [gestureRecognizer locationInView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-
-    if (indexPath == nil)
+    self.longPressPath = indexPath;
+    if (indexPath != nil)
     {
-        NSLog(@"long press on table view but not on a row");
-    }
-    else
-    {
-        NSLog(@"long press on table view at row %ld", (long)indexPath.row);
         [self performSegueWithIdentifier:@"CommentSegue" sender:self];              //ERROR
     }
 }
@@ -64,10 +62,11 @@
 
 - (void)getPostsFromApi
 {
+    self.posts = [[NSMutableArray alloc] init];
+
     NSURL *apiUrl = [NSURL URLWithString:@"http:www.kimonolabs.com/api/7n9nf8aa?apikey=e928b25b9f388d5950b6f620673e010b"];
     NSData *apiData = [NSData dataWithContentsOfURL:apiUrl];
     NSDictionary *apiOutput = [NSJSONSerialization JSONObjectWithData:apiData options:0 error:nil];
-
     NSDictionary *results = [apiOutput objectForKey:@"results"];
     NSArray *collection1 = [results objectForKey:@"collection1"];
 
@@ -120,11 +119,13 @@
     }
     else
     {
-        NSInteger selectedRow = self.tableView.indexPathForSelectedRow.row;
+        NSInteger selectedRow = self.longPressPath.row;
         Post *selectedPost = [self.posts objectAtIndex:selectedRow];
         CommentsViewController *commentsViewController  = segue.destinationViewController;
         commentsViewController.post = selectedPost;
-        NSLog(@"%@",commentsViewController.post.commentLink);
+
+        NSLog(@"%@",selectedPost.productLink);
+        NSLog(@"%@",selectedPost.commentLink);
     }
 }
 
@@ -140,43 +141,3 @@
 }
 
 @end
-
-
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
