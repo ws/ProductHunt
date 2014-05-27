@@ -26,12 +26,17 @@
 #import "CommentsViewController.h"
 #import "SWTableViewCell.h"
 
+#import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
+#import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
 
-@interface TableViewController () <SWTableViewCellDelegate>
+
+@interface TableViewController () <SWTableViewCellDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate>  //NJKFullScreen (last 2)
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property NSMutableArray *posts;
 @property BOOL showImgs;
 @property NSIndexPath *choosenCellPath;
+@property NJKScrollFullScreen *scrollProxy;
+@property BOOL hideNavBarOnScroll;                                                                              //NJKFullScreen
 @end
 
 @implementation TableViewController
@@ -42,13 +47,46 @@
     self.showImgs = false;
     [self updateTable];
 
+    self.hideNavBarOnScroll = true;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
 
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.tintColor = [UIColor orangeColor];
     [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
+
+    if (self.hideNavBarOnScroll)
+    {
+        _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                    //NJKFullScreen
+        self.tableView.delegate = (id)_scrollProxy;                                                                 //NJKFullScreen
+        _scrollProxy.delegate = self;                                                                               //NJKFullScreen
+    }
 }
+
+#pragma mark -
+#pragma mark NJKFullScreen
+
+- (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollUp:(CGFloat)deltaY
+{
+    [self moveNavigtionBar:deltaY animated:YES];
+}
+
+- (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollDown:(CGFloat)deltaY
+{
+    [self moveNavigtionBar:deltaY animated:YES];
+}
+
+- (void)scrollFullScreenScrollViewDidEndDraggingScrollUp:(NJKScrollFullScreen *)proxy
+{
+    [self hideNavigationBar:YES];
+}
+
+- (void)scrollFullScreenScrollViewDidEndDraggingScrollDown:(NJKScrollFullScreen *)proxy
+{
+    [self showNavigationBar:YES];
+}
+
+#pragma mark -
 
 - (void)updateTable
 {

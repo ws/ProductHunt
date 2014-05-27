@@ -1,1 +1,2 @@
 pod 'SWTableViewCell';
+pod 'NJKScrollFullScreen';

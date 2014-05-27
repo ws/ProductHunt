@@ -1,10 +1,13 @@
 PODS:
+  - NJKScrollFullScreen (0.2.2)
   - SWTableViewCell (0.3.0)
 
 DEPENDENCIES:
+  - NJKScrollFullScreen
   - SWTableViewCell
 
 SPEC CHECKSUMS:
+  NJKScrollFullScreen: 226315cb870d997910f48614a613e7b95b9550d4
   SWTableViewCell: 1725f7607ce4c154264c18aeb78e4636b11b0b29
 
 COCOAPODS: 0.33.1
