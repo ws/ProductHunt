@@ -6,22 +6,32 @@
 //  Copyright (c) 2014 SapanBhuta. All rights reserved.
 //
 
+//  Bugs:
+//
+//  Sections
+//  Left button make orange save & Right button make blue tweet
+
 //  Features to add:
 //
-//  Intro Page View
-//  Slide on cell to save link
+//  NJKProgress
+//  NJKScroll
+//  Sections
+//  Favorites Page View
+//  Page view app Intro
 
 
 #import "TableViewController.h"
 #import "Post.h"
 #import "WebViewController.h"
 #import "CommentsViewController.h"
+#import "SWTableViewCell.h"
 
-@interface TableViewController ()
+
+@interface TableViewController () <SWTableViewCellDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property NSMutableArray *posts;
 @property BOOL showImgs;
-@property NSIndexPath *longPressPath;
+@property NSIndexPath *choosenCellPath;
 @end
 
 @implementation TableViewController
@@ -32,25 +42,12 @@
     self.showImgs = false;
     [self updateTable];
 
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.tintColor = [UIColor orangeColor];
     [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
-
-    UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-    longPressGestureRecognizer.minimumPressDuration = 0.5; //seconds
-    [self.tableView addGestureRecognizer:longPressGestureRecognizer];
-}
-
-- (void)longPress:(UILongPressGestureRecognizer *)gestureRecognizer
-{
-    CGPoint point = [gestureRecognizer locationInView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-    self.longPressPath = indexPath;
-    if (indexPath != nil)
-    {
-        [self performSegueWithIdentifier:@"CommentSegue" sender:self];              //ERROR
-    }
 }
 
 - (void)updateTable
@@ -90,10 +87,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"postCellID"];
+    SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+
+    cell.leftUtilityButtons = [self leftButtons];
+    cell.delegate = self;
+
     Post *post = [self.posts objectAtIndex:indexPath.row];
     cell.textLabel.text = post.title;
-//    cell.textLabel.textColor = [UIColor orangeColor];
     cell.detailTextLabel.text = post.subtitle;
     cell.detailTextLabel.textColor = [UIColor grayColor];
     cell.detailTextLabel.numberOfLines = 2;
@@ -105,27 +105,73 @@
         NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
         cell.imageView.image = [UIImage imageWithData:imageData];
     }
+
     return cell;
+}
+
+- (NSArray *)leftButtons
+{
+    NSMutableArray *leftUtilityButtons = [NSMutableArray new];
+
+    [leftUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:0.07 green:0.75f blue:0.16f alpha:1.0]
+                                                icon:[UIImage imageNamed:@"check.png"]];
+//    [leftUtilityButtons sw_addUtilityButtonWithColor:
+//     [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:1.0]
+//                                                icon:[UIImage imageNamed:@"clock.png"]];
+    [leftUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:1.0f green:0.231f blue:0.188f alpha:1.0]
+                                                icon:[UIImage imageNamed:@"cross.png"]];
+    [leftUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:0.55f green:0.27f blue:0.07f alpha:1.0]
+                                                icon:[UIImage imageNamed:@"list.png"]];
+
+    return leftUtilityButtons;
+}
+
+// click event on left utility button
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index
+{
+    if (index == 0)
+    {
+        NSLog(@"Pressed 0 button: save/unsave");
+    }
+    else if (index == 1)
+    {
+        NSLog(@"Pressed 1 button tweet");
+    }
+    else
+    {
+        self.choosenCellPath = [self.tableView indexPathForCell:cell];
+        [self performSegueWithIdentifier:@"CommentSegue" sender:self];
+    }
+}
+
+// prevent multiple cells from showing utilty buttons simultaneously
+- (BOOL)swipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(SWTableViewCell *)cell
+{
+    return true;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.choosenCellPath = indexPath;
+    [self performSegueWithIdentifier:@"WebDetailSegue" sender:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([sender isKindOfClass:[UITableViewCell class]])
     {
-        NSInteger selectedRow = self.tableView.indexPathForSelectedRow.row;
-        Post *selectedPost = [self.posts objectAtIndex:selectedRow];
+        Post *selectedPost = [self.posts objectAtIndex:self.choosenCellPath.row];
         WebViewController *webViewController  = segue.destinationViewController;
         webViewController.post = selectedPost;
     }
     else
     {
-        NSInteger selectedRow = self.longPressPath.row;
-        Post *selectedPost = [self.posts objectAtIndex:selectedRow];
+        Post *selectedPost = [self.posts objectAtIndex:self.choosenCellPath.row];
         CommentsViewController *commentsViewController  = segue.destinationViewController;
         commentsViewController.post = selectedPost;
-
-        NSLog(@"%@",selectedPost.productLink);
-        NSLog(@"%@",selectedPost.commentLink);
     }
 }
 

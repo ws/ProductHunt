@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B0FE8B39-CD4B-4F3D-A0A9-E60C17207ED2</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ProductHunt</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0B056EA4-0C37-4F55-8894-D79820187FF0</key>
+		<string>https://github.com/sapanbhuta/ProductHunt</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ProductHunt.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0B056EA4-0C37-4F55-8894-D79820187FF0</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/sapanbhuta/ProductHunt</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>0B056EA4-0C37-4F55-8894-D79820187FF0</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0B056EA4-0C37-4F55-8894-D79820187FF0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ProductHunt</string>
+		</dict>
+	</array>
+</dict>
+</plist>

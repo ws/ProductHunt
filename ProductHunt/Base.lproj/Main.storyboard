@@ -40,7 +40,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tha-YB-mqz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1703" y="-759"/>
+            <point key="canvasLocation" x="1811" y="-67"/>
         </scene>
         <!--Table View Controller - Product Hunt-->
         <scene sceneID="VJj-OB-SyM">
@@ -51,7 +51,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="postCellID" textLabel="7Qy-cl-Bhw" detailTextLabel="nJW-mt-A7S" style="IBUITableViewCellStyleSubtitle" id="G9W-V3-Acz">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="7Qy-cl-Bhw" detailTextLabel="nJW-mt-A7S" style="IBUITableViewCellStyleSubtitle" id="G9W-V3-Acz" customClass="SWTableViewCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G9W-V3-Acz" id="VTC-7Z-Npl">
@@ -75,7 +75,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="aOl-wZ-ege" kind="push" id="AAb-fi-mvQ"/>
+                                    <segue destination="aOl-wZ-ege" kind="push" identifier="WebDetailSegue" id="AAb-fi-mvQ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -161,7 +161,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lof-VG-lgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="c7j-vF-Q0A" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1703" y="-67"/>
+            <point key="canvasLocation" x="1286" y="617"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MyQ-W6-RKM">
