@@ -25,7 +25,6 @@
 #import "WebViewController.h"
 #import "CommentsViewController.h"
 #import "SWTableViewCell.h"
-
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
 
@@ -47,7 +46,6 @@
     self.showImgs = false;
     [self updateTable];
 
-    self.hideNavBarOnScroll = true;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
 
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
@@ -55,6 +53,7 @@
     [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
 
+    self.hideNavBarOnScroll = true;
     if (self.hideNavBarOnScroll)
     {
         _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                    //NJKFullScreen
@@ -64,7 +63,7 @@
 }
 
 #pragma mark -
-#pragma mark NJKFullScreen
+#pragma mark NJKFullScreen Pod Delegate Methods
 
 - (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollUp:(CGFloat)deltaY
 {
@@ -87,6 +86,7 @@
 }
 
 #pragma mark -
+#pragma mark Fetch Data from API & Update Table
 
 - (void)updateTable
 {
@@ -118,6 +118,9 @@
     }
 }
 
+#pragma mark -
+#pragma mark Required Table View Methods
+
 -  (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.posts.count;
@@ -146,6 +149,9 @@
 
     return cell;
 }
+
+#pragma mark -
+#pragma mark Custom Methods for on Swipe Buttons
 
 - (NSArray *)leftButtons
 {
@@ -191,6 +197,9 @@
     return true;
 }
 
+#pragma mark -
+#pragma mark Tap on Cell and Segue Implementation
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.choosenCellPath = indexPath;
@@ -217,6 +226,9 @@
 {
 
 }
+
+#pragma mark -
+#pragma mark Cell Height
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
