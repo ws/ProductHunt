@@ -14,7 +14,6 @@
 @interface WebViewController () <UIWebViewDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate>          //NJKFullScreen (last 2)
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
-@property BOOL hideNavBarOnScroll;                                                                              //NJKFullScreen
 @end
 
 @implementation WebViewController
@@ -29,8 +28,7 @@
     [self.webView loadRequest:request];
     self.webView.scalesPageToFit = YES;
 
-    self.hideNavBarOnScroll = YES;                                                                             //NJKFullScreen
-    if (self.hideNavBarOnScroll)                                                                                //NJKFullScreen
+    if (YES)                                                                                                    //NJKFullScreen
     {                                                                                                           //NJKFullScreen
         _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
         self.webView.scrollView.delegate = (id)_scrollProxy;                                                    //NJKFullScreen

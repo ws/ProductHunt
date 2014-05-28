@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Djw-QX-K9T">
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Djw-QX-K9T">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -26,6 +26,12 @@
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Djw-QX-K9T" firstAttribute="top" secondItem="fE3-V4-K1D" secondAttribute="top" id="63B-8W-Q8K"/>
+                            <constraint firstItem="Djw-QX-K9T" firstAttribute="leading" secondItem="fE3-V4-K1D" secondAttribute="leading" id="7QQ-Ca-GvU"/>
+                            <constraint firstAttribute="trailing" secondItem="Djw-QX-K9T" secondAttribute="trailing" id="dFh-c6-V9s"/>
+                            <constraint firstAttribute="bottom" secondItem="Djw-QX-K9T" secondAttribute="bottom" id="qEC-kt-Nvu"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="4iN-hk-XOR">
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="qoC-ei-dpV">
@@ -41,6 +47,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tha-YB-mqz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1811" y="-67"/>
+        </scene>
+        <!--Favorites Table View Controller-->
+        <scene sceneID="PLv-uz-Jlp">
+            <objects>
+                <tableViewController id="Mrf-pK-lkK" customClass="FavoritesTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wDa-cx-72Z">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavCell" id="gLv-1H-tRQ">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gLv-1H-tRQ" id="kvn-n8-KQD">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Mrf-pK-lkK" id="TL6-Bh-LOD"/>
+                            <outlet property="delegate" destination="Mrf-pK-lkK" id="AHb-g3-QBw"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KTW-sQ-GHA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1286" y="-782"/>
         </scene>
         <!--Table View Controller - Product Hunt-->
         <scene sceneID="VJj-OB-SyM">
@@ -108,8 +142,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cdg-YE-wbu">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cdg-YE-wbu">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -118,6 +152,12 @@
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Cdg-YE-wbu" secondAttribute="trailing" id="NV1-Ig-WUM"/>
+                            <constraint firstItem="Cdg-YE-wbu" firstAttribute="top" secondItem="0Qp-ZS-QkF" secondAttribute="top" id="O6o-TV-xiX"/>
+                            <constraint firstAttribute="bottom" secondItem="Cdg-YE-wbu" secondAttribute="bottom" id="Wib-59-tCS"/>
+                            <constraint firstItem="Cdg-YE-wbu" firstAttribute="leading" secondItem="0Qp-ZS-QkF" secondAttribute="leading" id="b2M-GZ-Foj"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Comments" id="br7-gu-lAJ">
                         <barButtonItem key="leftBarButtonItem" image="smallback" id="aBz-LM-h5C">

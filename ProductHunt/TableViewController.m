@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 SapanBhuta. All rights reserved.
 //
 
+#define kFavoritesArray @"favorites"
+#define kPost @"Post"
+
 #import "TableViewController.h"
 #import "Post.h"
 #import "WebViewController.h"
@@ -15,14 +18,14 @@
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
 @import Twitter;
 
-@interface TableViewController () <UIAlertViewDelegate, SWTableViewCellDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate>
-                                                                                                                //NJKFullScreen (last 2)
+@interface TableViewController () <UIAlertViewDelegate, SWTableViewCellDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate> //NJK (last 2)
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property NSMutableArray *posts;
-@property BOOL showImgs;
 @property NSIndexPath *choosenCellPath;
 @property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
-@property BOOL hideNavBarOnScroll;                                                                              //NJKFullScreen
+@property NSMutableArray *savedPosts;
+@property BOOL setOrange;
+@property BOOL showImgs;
 @end
 
 @implementation TableViewController
@@ -30,7 +33,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.showImgs = false;
+
+
+    [self.savedPosts addObjectsFromArray:[[NSUserDefaults standardUserDefaults] objectForKey:kFavoritesArray]]; //check if nill issue
+
+    self.setOrange = NO;
+    self.showImgs = NO;
     [self updateTable];
 
     self.clearsSelectionOnViewWillAppear = YES;                                                                 //FixSelectionBug
@@ -41,8 +49,7 @@
     [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
 
-    self.hideNavBarOnScroll = YES;                                                                              //NJKFullScreen
-    if (self.hideNavBarOnScroll)                                                                                //NJKFullScreen
+    if (YES)                                                                                                    //NJKFullScreen
     {                                                                                                           //NJKFullScreen
         _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
         self.tableView.delegate = (id)_scrollProxy;                                                             //NJKFullScreen
@@ -92,6 +99,7 @@
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
      {
+         //start load activity indicator
          NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&connectionError];
          NSArray *collection1 = output[@"results"][@"collection1"];
 
@@ -103,29 +111,16 @@
              NSString *commentLink = postBlock[@"property4"][@"href"];
              NSString *imageLink = postBlock[@"property5"][@"src"];
 
-             Post *post = [[Post alloc] initWithproductLink:productLink title:title subtitle:subtitle imageLink:imageLink commentLink:commentLink];
+             Post *post = [[Post alloc] initWithproductLink:productLink
+                                                      title:title
+                                                   subtitle:subtitle
+                                                  imageLink:imageLink
+                                                commentLink:commentLink];
              [self.posts addObject:post];
          }
-        [self.tableView reloadData];
+         [self.tableView reloadData];
+         //stop load activity indicator
      }];
-
-//    NSURL *apiUrl = [NSURL URLWithString:@"http:www.kimonolabs.com/api/7n9nf8aa?apikey=e928b25b9f388d5950b6f620673e010b"];
-//    NSData *apiData = [NSData dataWithContentsOfURL:apiUrl];
-//    NSDictionary *apiOutput = [NSJSONSerialization JSONObjectWithData:apiData options:0 error:nil];
-//    NSDictionary *results = [apiOutput objectForKey:@"results"];
-//    NSArray *collection1 = [results objectForKey:@"collection1"];
-//
-//    for (NSDictionary *postBlock in collection1)
-//    {
-//        NSString *productLink = [[postBlock objectForKey:@"property2"] objectForKey:@"href"];
-//        NSString *title = [[postBlock objectForKey:@"property2"] objectForKey:@"text"];
-//        NSString *subtitle = [postBlock objectForKey:@"property3"];
-//        NSString *imageLink = [[postBlock objectForKey:@"property4"] objectForKey:@"src"];
-//        NSString *commentLink = [[postBlock objectForKey:@"property5"] objectForKey:@"href"];
-//
-//        Post *post = [[Post alloc] initWithproductLink:productLink title:title subtitle:subtitle imageLink:imageLink commentLink:commentLink];
-//        [self.posts addObject:post];
-//    }
 }
 
 #pragma mark -
@@ -166,19 +161,26 @@
 - (NSArray *)leftButtons
 {
     NSMutableArray *leftUtilityButtons = [NSMutableArray new];
+    UIColor *orangeOrGray;
 
-    [leftUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:0.50f green:0.50f blue:0.50f alpha:1.0] icon:[UIImage imageNamed:@"smallstar.png"]]; //make color gray
-//    [UIColor colorWithRed:0.07f green:0.75f blue:0.16f alpha:1.0] icon:[UIImage imageNamed:@"smallstar.png"]]; //make color gray
-    [leftUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:255 green:255 blue:255 alpha:1.0] icon:[UIImage imageNamed:@"twitter.png"]];
-//    [leftUtilityButtons sw_addUtilityButtonWithColor:
-//     [UIColor colorWithRed:64 green:153 blue:255 alpha:1.0] icon:[UIImage imageNamed:@"tweet.png"]];
-    [leftUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:0.55f green:0.27f blue:0.07f alpha:1.0] icon:[UIImage imageNamed:@"comment.png"]];
+    if (self.setOrange)
+    {
+        orangeOrGray = [UIColor colorWithRed:255/255.0f green:147/255.0f blue:39/255.0f alpha:1.0f];
+    }
+    else
+    {
+        orangeOrGray = [UIColor colorWithRed:0.50f green:0.50f blue:0.50f alpha:1.0];
+    }
+
+    [leftUtilityButtons sw_addUtilityButtonWithColor:orangeOrGray icon:[UIImage imageNamed:@"smallstar.png"]];
+
+    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1.0] icon:[UIImage imageNamed:@"twitter.png"]];
+
+    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:0.55f green:0.27f blue:0.07f alpha:1.0] icon:[UIImage imageNamed:@"comment.png"]];
 
     return leftUtilityButtons;
 }
+
 
 // click event on left utility button
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index
@@ -191,15 +193,28 @@
             NSLog(@"unsaving post");
             [self.savedPosts removeObject:post];
             post.saved = NO;
-            //change color to gray
+            self.setOrange = NO;
+            cell.leftUtilityButtons = nil;
+            cell.leftUtilityButtons = [self leftButtons];
         }
         else
         {
             NSLog(@"saving post");
             [self.savedPosts addObject:post];
             post.saved = YES;
-            //change color to orange
+            self.setOrange = YES;
+            cell.leftUtilityButtons = nil;
+            cell.leftUtilityButtons = [self leftButtons];
         }
+
+        //loop over self.posts to create an array that mirrors it but with NSData objects then pass to standardUserDefaults
+        NSMutableArray *tempArrayOfPostsAsDataObjects = [[NSMutableArray alloc] init];
+        for (Post *post in self.posts)
+        {
+            [tempArrayOfPostsAsDataObjects addObject:[NSKeyedArchiver archivedDataWithRootObject:post]];
+        }
+        [[NSUserDefaults standardUserDefaults] setObject:tempArrayOfPostsAsDataObjects forKey:kFavoritesArray];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     else if (index == 1)
     {
