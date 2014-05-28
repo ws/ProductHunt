@@ -9,6 +9,7 @@
 #import "WebViewController.h"
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
+#import "SuProgress.h"                                                                                          //SuProgress
 
 @interface WebViewController () <UIWebViewDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate>          //NJKFullScreen (last 2)
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -22,7 +23,7 @@
 {
     [super viewDidLoad];
     self.title = self.post.title;
-
+    [self SuProgressForWebView:self.webView];                                                                   //SuProgress
     NSURL *url = [NSURL URLWithString:self.post.productLink];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:request];
@@ -61,24 +62,28 @@
 }
 
 #pragma mark -
+#pragma mark WebView Delegate Methods
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+//    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+//    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (event.subtype == UIEventSubtypeMotionShake)
     {
-        [self.webView reload];
+//        [self.webView reload];
     }
 }
+
+#pragma mark -
+#pragma mark Share
 
 - (IBAction)share:(id)sender
 {

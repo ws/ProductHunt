@@ -7,6 +7,7 @@
 //
 
 #import "CommentsViewController.h"
+#import "SuProgress.h"                                                                                          //SuProgress
 
 @interface CommentsViewController () <UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -19,7 +20,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    [self SuProgressForWebView:self.webView];                                                                   //SuProgress
     self.backButton.enabled = NO;
     NSURL *url = [NSURL URLWithString:self.post.commentLink];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -33,12 +34,12 @@
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+//    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+//    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
     if ([self.webView canGoBack])
     {
@@ -58,7 +59,7 @@
 {
     if (event.subtype == UIEventSubtypeMotionShake)
     {
-        [self.webView reload];
+//        [self.webView reload];
     }
 }
 

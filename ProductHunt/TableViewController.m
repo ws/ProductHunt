@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 SapanBhuta. All rights reserved.
 //
 
-
 #import "TableViewController.h"
 #import "Post.h"
 #import "WebViewController.h"
@@ -14,8 +13,6 @@
 #import "SWTableViewCell.h"
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
-//#import "SuProgress.h"
-
 
 @interface TableViewController () <SWTableViewCellDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate>  //NJKFullScreen (last 2)
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -24,7 +21,6 @@
 @property NSIndexPath *choosenCellPath;
 @property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
 @property BOOL hideNavBarOnScroll;                                                                              //NJKFullScreen
-@property BOOL segueIsPush;
 @end
 
 @implementation TableViewController
@@ -89,33 +85,46 @@
 {
     self.posts = [[NSMutableArray alloc] init];
 
-//    NSURL *url = [NSURL URLWithString:@"https://s3.amazonaws.com/mobile-makers-lib/superheroes.json"];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//    [NSURLConnection sendAsynchronousRequest:request
-//                                       queue:[NSOperationQueue mainQueue]
-//                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-//     {
-//         self.superheroes = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&connectionError];
-//         [self.tableView reloadData];
-//     }];
+    NSURL *url = [NSURL URLWithString:@"http:www.kimonolabs.com/api/7n9nf8aa?apikey=e928b25b9f388d5950b6f620673e010b"];
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:url]
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+     {
+         NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&connectionError];
+         NSDictionary *results = [output objectForKey:@"results"];
+         NSArray *collection1 = [results objectForKey:@"collection1"];
 
-    NSURL *apiUrl = [NSURL URLWithString:@"http:www.kimonolabs.com/api/7n9nf8aa?apikey=e928b25b9f388d5950b6f620673e010b"];
-    NSData *apiData = [NSData dataWithContentsOfURL:apiUrl];
-    NSDictionary *apiOutput = [NSJSONSerialization JSONObjectWithData:apiData options:0 error:nil];
-    NSDictionary *results = [apiOutput objectForKey:@"results"];
-    NSArray *collection1 = [results objectForKey:@"collection1"];
+         for (NSDictionary *postBlock in collection1)
+         {
+             NSString *productLink = [[postBlock objectForKey:@"property2"] objectForKey:@"href"];
+             NSString *title = [[postBlock objectForKey:@"property2"] objectForKey:@"text"];
+             NSString *subtitle = [postBlock objectForKey:@"property3"];
+             NSString *imageLink = [[postBlock objectForKey:@"property4"] objectForKey:@"src"];
+             NSString *commentLink = [[postBlock objectForKey:@"property5"] objectForKey:@"href"];
 
-    for (NSDictionary *postBlock in collection1)
-    {
-        NSString *productLink = [[postBlock objectForKey:@"property2"] objectForKey:@"href"];
-        NSString *title = [[postBlock objectForKey:@"property2"] objectForKey:@"text"];
-        NSString *subtitle = [postBlock objectForKey:@"property3"];
-        NSString *imageLink = [[postBlock objectForKey:@"property4"] objectForKey:@"src"];
-        NSString *commentLink = [[postBlock objectForKey:@"property5"] objectForKey:@"href"];
+             Post *post = [[Post alloc] initWithproductLink:productLink title:title subtitle:subtitle imageLink:imageLink commentLink:commentLink];
+             [self.posts addObject:post];
+         }
+        [self.tableView reloadData];
+     }];
 
-        Post *post = [[Post alloc] initWithproductLink:productLink title:title subtitle:subtitle imageLink:imageLink commentLink:commentLink];
-        [self.posts addObject:post];
-    }
+//    NSURL *apiUrl = [NSURL URLWithString:@"http:www.kimonolabs.com/api/7n9nf8aa?apikey=e928b25b9f388d5950b6f620673e010b"];
+//    NSData *apiData = [NSData dataWithContentsOfURL:apiUrl];
+//    NSDictionary *apiOutput = [NSJSONSerialization JSONObjectWithData:apiData options:0 error:nil];
+//    NSDictionary *results = [apiOutput objectForKey:@"results"];
+//    NSArray *collection1 = [results objectForKey:@"collection1"];
+//
+//    for (NSDictionary *postBlock in collection1)
+//    {
+//        NSString *productLink = [[postBlock objectForKey:@"property2"] objectForKey:@"href"];
+//        NSString *title = [[postBlock objectForKey:@"property2"] objectForKey:@"text"];
+//        NSString *subtitle = [postBlock objectForKey:@"property3"];
+//        NSString *imageLink = [[postBlock objectForKey:@"property4"] objectForKey:@"src"];
+//        NSString *commentLink = [[postBlock objectForKey:@"property5"] objectForKey:@"href"];
+//
+//        Post *post = [[Post alloc] initWithproductLink:productLink title:title subtitle:subtitle imageLink:imageLink commentLink:commentLink];
+//        [self.posts addObject:post];
+//    }
 }
 
 #pragma mark -
