@@ -17,7 +17,7 @@
     self.subtitle = subtitle;
     self.imageLink = imageLink;
     self.commentLink = commentLink;
-
+    self.saved = NO;
     return self;
 }
 

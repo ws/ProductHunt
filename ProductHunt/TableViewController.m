@@ -168,11 +168,14 @@
     NSMutableArray *leftUtilityButtons = [NSMutableArray new];
 
     [leftUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:0.07f green:0.75f blue:0.16f alpha:1.0] icon:[UIImage imageNamed:@"check.png"]];
+     [UIColor colorWithRed:0.50f green:0.50f blue:0.50f alpha:1.0] icon:[UIImage imageNamed:@"smallstar.png"]]; //make color gray
+//    [UIColor colorWithRed:0.07f green:0.75f blue:0.16f alpha:1.0] icon:[UIImage imageNamed:@"smallstar.png"]]; //make color gray
     [leftUtilityButtons sw_addUtilityButtonWithColor:
      [UIColor colorWithRed:255 green:255 blue:255 alpha:1.0] icon:[UIImage imageNamed:@"twitter.png"]];
+//    [leftUtilityButtons sw_addUtilityButtonWithColor:
+//     [UIColor colorWithRed:64 green:153 blue:255 alpha:1.0] icon:[UIImage imageNamed:@"tweet.png"]];
     [leftUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:0.55f green:0.27f blue:0.07f alpha:1.0] icon:[UIImage imageNamed:@"list.png"]];
+     [UIColor colorWithRed:0.55f green:0.27f blue:0.07f alpha:1.0] icon:[UIImage imageNamed:@"comment.png"]];
 
     return leftUtilityButtons;
 }
@@ -182,8 +185,21 @@
 {
     if (index == 0)
     {
-        NSLog(@"Pressed left button: favorite/unfavorite");
-
+        Post *post = self.posts[[self.tableView indexPathForCell:cell].row];
+        if (post.saved)
+        {
+            NSLog(@"unsaving post");
+            [self.savedPosts removeObject:post];
+            post.saved = NO;
+            //change color to gray
+        }
+        else
+        {
+            NSLog(@"saving post");
+            [self.savedPosts addObject:post];
+            post.saved = YES;
+            //change color to orange
+        }
     }
     else if (index == 1)
     {
@@ -212,7 +228,7 @@
             [alertView show];
         }
     }
-    else
+    else if (index == 2)
     {
         self.choosenCellPath = [self.tableView indexPathForCell:cell];
         [self performSegueWithIdentifier:@"CommentSegue" sender:self];
