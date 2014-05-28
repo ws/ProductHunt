@@ -29,7 +29,7 @@
     [self.webView loadRequest:request];
     self.webView.scalesPageToFit = YES;
 
-    self.hideNavBarOnScroll = true;                                                                             //NJKFullScreen
+    self.hideNavBarOnScroll = YES;                                                                             //NJKFullScreen
     if (self.hideNavBarOnScroll)                                                                                //NJKFullScreen
     {                                                                                                           //NJKFullScreen
         _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
@@ -80,6 +80,14 @@
     {
 //        [self.webView reload];
     }
+}
+
+#pragma mark -
+#pragma mark Kill Web Load on View Change
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self.webView stopLoading];
 }
 
 #pragma mark -

@@ -41,7 +41,7 @@
     [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
 
-    self.hideNavBarOnScroll = true;                                                                             //NJKFullScreen
+    self.hideNavBarOnScroll = YES;                                                                             //NJKFullScreen
     if (self.hideNavBarOnScroll)                                                                                //NJKFullScreen
     {                                                                                                           //NJKFullScreen
         _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
@@ -87,7 +87,7 @@
 {
     self.posts = [[NSMutableArray alloc] init];
 
-    NSURL *url = [NSURL URLWithString:@"http:www.kimonolabs.com/api/7n9nf8aa?apikey=e928b25b9f388d5950b6f620673e010b"];
+    NSURL *url = [NSURL URLWithString:@"http://www.kimonolabs.com/api/7n9nf8aa?apikey=e928b25b9f388d5950b6f620673e010b"];
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:url]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
@@ -169,17 +169,11 @@
     NSMutableArray *leftUtilityButtons = [NSMutableArray new];
 
     [leftUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:0.07 green:0.75f blue:0.16f alpha:1.0]
-                                                icon:[UIImage imageNamed:@"check.png"]];
-//    [leftUtilityButtons sw_addUtilityButtonWithColor:
-//     [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:1.0]
-//                                                icon:[UIImage imageNamed:@"clock.png"]];
+     [UIColor colorWithRed:0.07f green:0.75f blue:0.16f alpha:1.0] icon:[UIImage imageNamed:@"check.png"]];
     [leftUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:1.0f green:0.231f blue:0.188f alpha:1.0]
-                                                icon:[UIImage imageNamed:@"cross.png"]];
+     [UIColor colorWithRed:255 green:255 blue:255 alpha:1.0] icon:[UIImage imageNamed:@"twitter.png"]];
     [leftUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:0.55f green:0.27f blue:0.07f alpha:1.0]
-                                                icon:[UIImage imageNamed:@"list.png"]];
+     [UIColor colorWithRed:0.55f green:0.27f blue:0.07f alpha:1.0] icon:[UIImage imageNamed:@"list.png"]];
 
     return leftUtilityButtons;
 }
