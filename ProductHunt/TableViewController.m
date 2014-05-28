@@ -93,16 +93,15 @@
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
      {
          NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&connectionError];
-         NSDictionary *results = [output objectForKey:@"results"];
-         NSArray *collection1 = [results objectForKey:@"collection1"];
+         NSArray *collection1 = output[@"results"][@"collection1"];
 
          for (NSDictionary *postBlock in collection1)
          {
-             NSString *productLink = [[postBlock objectForKey:@"property2"] objectForKey:@"href"];
-             NSString *title = [[postBlock objectForKey:@"property2"] objectForKey:@"text"];
-             NSString *subtitle = [postBlock objectForKey:@"property3"];
-             NSString *imageLink = [[postBlock objectForKey:@"property4"] objectForKey:@"src"];
-             NSString *commentLink = [[postBlock objectForKey:@"property5"] objectForKey:@"href"];
+             NSString *productLink = postBlock[@"property2"][@"href"];
+             NSString *title = postBlock[@"property2"][@"text"];
+             NSString *subtitle = postBlock[@"property3"];
+             NSString *commentLink = postBlock[@"property4"][@"href"];
+             NSString *imageLink = postBlock[@"property5"][@"src"];
 
              Post *post = [[Post alloc] initWithproductLink:productLink title:title subtitle:subtitle imageLink:imageLink commentLink:commentLink];
              [self.posts addObject:post];
@@ -227,12 +226,24 @@
 }
 
 #pragma mark -
-#pragma mark Tap on Cell and Segue Implementation
+#pragma mark Segue / Transitions
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.choosenCellPath = indexPath;
     [self performSegueWithIdentifier:@"WebDetailSegue" sender:self];
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+//    [super viewWillAppear:animated];
+
+    NSIndexPath *selection = [self.tableView indexPathForSelectedRow];
+    if (selection)
+    {
+        [self.tableView deselectRowAtIndexPath:selection animated:YES];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

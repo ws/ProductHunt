@@ -50,6 +50,14 @@
         self.backButton.enabled = NO;
     }
 }
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self.webView stopLoading];
+}
+
+#pragma mark -
+
 - (IBAction)onBackPress:(id)sender
 {
     [self.webView goBack];
