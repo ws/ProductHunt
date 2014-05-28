@@ -41,7 +41,7 @@
     [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
 
-    self.hideNavBarOnScroll = YES;                                                                             //NJKFullScreen
+    self.hideNavBarOnScroll = YES;                                                                              //NJKFullScreen
     if (self.hideNavBarOnScroll)                                                                                //NJKFullScreen
     {                                                                                                           //NJKFullScreen
         _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen

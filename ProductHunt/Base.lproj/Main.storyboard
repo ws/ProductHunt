@@ -120,7 +120,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Comments" id="br7-gu-lAJ">
-                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="aBz-LM-h5C">
+                        <barButtonItem key="leftBarButtonItem" image="smallback" id="aBz-LM-h5C">
                             <connections>
                                 <action selector="onBackPress:" destination="MOX-AV-Mpn" id="VMI-xv-gnc"/>
                             </connections>
@@ -182,6 +182,9 @@
             <point key="canvasLocation" x="1286" y="617"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="smallback" width="32" height="32"/>
+    </resources>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
