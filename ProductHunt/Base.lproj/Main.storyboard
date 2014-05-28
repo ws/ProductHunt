@@ -89,14 +89,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="MCE-sH-xqm" id="Oev-Hi-QCf"/>
-                        <segue destination="MOX-AV-Mpn" kind="modal" identifier="CommentSegue" id="SfZ-0c-ctA"/>
+                        <segue destination="CTn-So-qko" kind="modal" identifier="CommentSegue" id="SfZ-0c-ctA"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C5w-q1-hWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1286" y="-67"/>
         </scene>
-        <!--Comments View Controller-->
+        <!--Comments View Controller - Comments-->
         <scene sceneID="r1A-fk-4rv">
             <objects>
                 <viewController id="MOX-AV-Mpn" customClass="CommentsViewController" sceneMemberID="viewController">
@@ -108,60 +108,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T9D-SQ-NDb">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Comments" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRV-Rb-Q4c">
-                                        <rect key="frame" x="105" y="34" width="110" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DB9-Uh-H4C">
-                                        <rect key="frame" x="252" y="30" width="48" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="c7j-vF-Q0A" kind="unwind" unwindAction="unwind:" id="77E-Oz-zbr"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YLp-w6-sLV">
-                                        <rect key="frame" x="20" y="30" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <state key="normal" title="&lt;">
-                                            <color key="titleShadowColor" red="1" green="0.50217481019999999" blue="0.0020682545409999998" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="onBackPress:" destination="MOX-AV-Mpn" eventType="touchUpInside" id="Lth-bz-OQg"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="0.50217481018927956" blue="0.0020682545409024256" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
-                            </view>
                             <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cdg-YE-wbu">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="MOX-AV-Mpn" id="TjX-ZZ-CGc"/>
+                                </connections>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Comments" id="br7-gu-lAJ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="aBz-LM-h5C">
+                            <connections>
+                                <action selector="onBackPress:" destination="MOX-AV-Mpn" id="VMI-xv-gnc"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="y0p-nS-ucN">
+                            <connections>
+                                <segue destination="c7j-vF-Q0A" kind="unwind" unwindAction="unwind:" id="obY-zE-wfR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="backButton" destination="YLp-w6-sLV" id="Ovo-10-rLG"/>
-                        <outlet property="cancelButton" destination="DB9-Uh-H4C" id="Jgz-Dl-HYx"/>
+                        <outlet property="backButton" destination="aBz-LM-h5C" id="Epx-vY-udT"/>
+                        <outlet property="cancelButton" destination="y0p-nS-ucN" id="CXj-fZ-OH4"/>
                         <outlet property="webView" destination="Cdg-YE-wbu" id="fWW-up-Hh4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lof-VG-lgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="c7j-vF-Q0A" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1286" y="617"/>
+            <point key="canvasLocation" x="1812" y="617"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MyQ-W6-RKM">
@@ -181,6 +161,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1jD-dR-nFk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="850" y="-67"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gbK-O7-QWI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CTn-So-qko" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="xwQ-PK-7pB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="1" green="0.50217481019999999" blue="0.0020682545409999998" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="MOX-AV-Mpn" kind="relationship" relationship="rootViewController" id="wKQ-gz-TAV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HKy-lx-hS9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1286" y="617"/>
         </scene>
     </scenes>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

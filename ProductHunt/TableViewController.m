@@ -6,19 +6,6 @@
 //  Copyright (c) 2014 SapanBhuta. All rights reserved.
 //
 
-//  Bugs:
-//
-//  Sections
-//  Left button make orange save & Right button make blue tweet
-
-//  Features to add:
-//
-//  NJKProgress
-//  NJKScroll
-//  Sections
-//  Favorites Page View
-//  Page view app Intro
-
 
 #import "TableViewController.h"
 #import "Post.h"
@@ -27,6 +14,7 @@
 #import "SWTableViewCell.h"
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
+//#import "SuProgress.h"
 
 
 @interface TableViewController () <SWTableViewCellDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate>  //NJKFullScreen (last 2)
@@ -34,8 +22,9 @@
 @property NSMutableArray *posts;
 @property BOOL showImgs;
 @property NSIndexPath *choosenCellPath;
-@property NJKScrollFullScreen *scrollProxy;
+@property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
 @property BOOL hideNavBarOnScroll;                                                                              //NJKFullScreen
+@property BOOL segueIsPush;
 @end
 
 @implementation TableViewController
@@ -46,6 +35,7 @@
     self.showImgs = false;
     [self updateTable];
 
+    self.clearsSelectionOnViewWillAppear = YES;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
 
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
@@ -53,13 +43,13 @@
     [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
 
-    self.hideNavBarOnScroll = true;
-    if (self.hideNavBarOnScroll)
-    {
-        _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                    //NJKFullScreen
-        self.tableView.delegate = (id)_scrollProxy;                                                                 //NJKFullScreen
-        _scrollProxy.delegate = self;                                                                               //NJKFullScreen
-    }
+    self.hideNavBarOnScroll = true;                                                                             //NJKFullScreen
+    if (self.hideNavBarOnScroll)                                                                                //NJKFullScreen
+    {                                                                                                           //NJKFullScreen
+        _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
+        self.tableView.delegate = (id)_scrollProxy;                                                             //NJKFullScreen
+        _scrollProxy.delegate = self;                                                                           //NJKFullScreen
+    }                                                                                                           //NJKFullScreen
 }
 
 #pragma mark -
@@ -98,6 +88,16 @@
 - (void)getPostsFromApi
 {
     self.posts = [[NSMutableArray alloc] init];
+
+//    NSURL *url = [NSURL URLWithString:@"https://s3.amazonaws.com/mobile-makers-lib/superheroes.json"];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    [NSURLConnection sendAsynchronousRequest:request
+//                                       queue:[NSOperationQueue mainQueue]
+//                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+//     {
+//         self.superheroes = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&connectionError];
+//         [self.tableView reloadData];
+//     }];
 
     NSURL *apiUrl = [NSURL URLWithString:@"http:www.kimonolabs.com/api/7n9nf8aa?apikey=e928b25b9f388d5950b6f620673e010b"];
     NSData *apiData = [NSData dataWithContentsOfURL:apiUrl];
@@ -208,16 +208,17 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([sender isKindOfClass:[UITableViewCell class]])
+    if ([segue.identifier isEqualToString:@"WebDetailSegue"])
     {
         Post *selectedPost = [self.posts objectAtIndex:self.choosenCellPath.row];
-        WebViewController *webViewController  = segue.destinationViewController;
+        WebViewController *webViewController = segue.destinationViewController;
         webViewController.post = selectedPost;
     }
     else
     {
         Post *selectedPost = [self.posts objectAtIndex:self.choosenCellPath.row];
-        CommentsViewController *commentsViewController  = segue.destinationViewController;
+        UINavigationController *navigationController = segue.destinationViewController;
+        CommentsViewController *commentsViewController = [navigationController.viewControllers objectAtIndex:0];
         commentsViewController.post = selectedPost;
     }
 }

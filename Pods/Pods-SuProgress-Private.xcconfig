@@ -1,0 +1,5 @@
+#include "Pods-SuProgress.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/SuProgress" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/NJKScrollFullScreen" "${PODS_ROOT}/Headers/SWTableViewCell" "${PODS_ROOT}/Headers/SuProgress"
+OTHER_LDFLAGS = -ObjC ${PODS_SUPROGRESS_OTHER_LDFLAGS}
+PODS_ROOT = ${SRCROOT}

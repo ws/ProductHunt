@@ -18,3 +18,9 @@
 #define COCOAPODS_VERSION_MINOR_SWTableViewCell 3
 #define COCOAPODS_VERSION_PATCH_SWTableViewCell 0
 
+// SuProgress
+#define COCOAPODS_POD_AVAILABLE_SuProgress
+#define COCOAPODS_VERSION_MAJOR_SuProgress 0
+#define COCOAPODS_VERSION_MINOR_SuProgress 8
+#define COCOAPODS_VERSION_PATCH_SuProgress 1
+

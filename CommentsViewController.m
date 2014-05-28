@@ -10,8 +10,8 @@
 
 @interface CommentsViewController () <UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
-@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @end
 
 @implementation CommentsViewController
@@ -20,11 +20,16 @@
 {
     [super viewDidLoad];
 
+    self.backButton.enabled = NO;
     NSURL *url = [NSURL URLWithString:self.post.commentLink];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:request];
     self.webView.scalesPageToFit = YES;
+
 }
+
+#pragma mark -
+#pragma mark WebView Delegate Methods
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
@@ -37,14 +42,13 @@
 
     if ([self.webView canGoBack])
     {
-        self.backButton.enabled = NO;
+        self.backButton.enabled = YES;
     }
     else
     {
-        self.backButton.enabled = YES;
+        self.backButton.enabled = NO;
     }
 }
-
 - (IBAction)onBackPress:(id)sender
 {
     [self.webView goBack];
