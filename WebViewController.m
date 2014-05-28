@@ -88,6 +88,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [self.webView stopLoading];
+//    [super viewWillDisappear:animated];
 }
 
 #pragma mark -
