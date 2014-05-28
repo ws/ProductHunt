@@ -13,8 +13,10 @@
 #import "SWTableViewCell.h"
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
+@import Twitter;
 
-@interface TableViewController () <SWTableViewCellDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate>  //NJKFullScreen (last 2)
+@interface TableViewController () <UIAlertViewDelegate, SWTableViewCellDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate>
+                                                                                                                //NJKFullScreen (last 2)
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property NSMutableArray *posts;
 @property BOOL showImgs;
@@ -31,7 +33,7 @@
     self.showImgs = false;
     [self updateTable];
 
-    self.clearsSelectionOnViewWillAppear = YES;
+    self.clearsSelectionOnViewWillAppear = YES;                                                                 //FixSelectionBug
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
 
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
@@ -187,11 +189,35 @@
 {
     if (index == 0)
     {
-        NSLog(@"Pressed 0 button: save/unsave");
+        NSLog(@"Pressed left button: favorite/unfavorite");
+
     }
     else if (index == 1)
     {
-        NSLog(@"Pressed 1 button tweet");
+        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+        {
+            Post *post = [self.posts objectAtIndex:[self.tableView indexPathForCell:cell].row];
+            NSString *url = post.productLink;
+            NSString *title = post.title;
+            NSString *subtitle = post.subtitle;
+            NSString *text = [@"Check out: " stringByAppendingString:[[title stringByAppendingString:@" - "] stringByAppendingString:subtitle]];
+
+            SLComposeViewController *tweetSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+            [tweetSheet setInitialText:text];
+            [tweetSheet addURL:[NSURL URLWithString:url]];
+//            [tweetSheet addImage:[UIImage imageNamed:self.imageString]];
+            [self presentViewController:tweetSheet animated:YES completion:nil];
+        }
+        else
+        {
+            UIAlertView *alertView = [[UIAlertView alloc]
+                                      initWithTitle:@"Sorry"
+                                      message:@"You can't send a tweet right now, make sure your device has an internet connection and you have at least one Twitter account setup"
+                                      delegate:self
+                                      cancelButtonTitle:@"OK"                                                   
+                                      otherButtonTitles:nil];
+            [alertView show];
+        }
     }
     else
     {

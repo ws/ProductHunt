@@ -89,8 +89,8 @@
 {
     NSString *title = self.post.title;
     NSString *subtitle = self.post.subtitle;
-    NSString *text = [[title stringByAppendingString:@" - "] stringByAppendingString:subtitle];
-    NSURL *url = [NSURL URLWithString:self.post.commentLink];
+    NSString *text = [@"Check out: " stringByAppendingString:[[title stringByAppendingString:@" - "] stringByAppendingString:subtitle]];
+    NSURL *url = [NSURL URLWithString:self.post.productLink];
 //    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.post.imageLink]]];
 
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[text, url]
