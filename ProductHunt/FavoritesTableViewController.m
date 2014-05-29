@@ -26,7 +26,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.savedPosts = [[NSMutableArray alloc] init];
     [self getData];
 
     if (self.savedPosts.count > 10)                                                                             //NJKFullScreen
@@ -65,6 +64,8 @@
 
 - (void)getData
 {
+    self.savedPosts = [[NSMutableArray alloc] init];
+
     for (NSData *data in [[NSUserDefaults standardUserDefaults] objectForKey:kFavoritesArray])
     {
         [self.savedPosts addObject:[NSKeyedUnarchiver unarchiveObjectWithData:data]];

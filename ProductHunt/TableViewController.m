@@ -13,7 +13,6 @@
 #import "Post.h"
 #import "WebViewController.h"
 #import "CommentsViewController.h"
-#import "FavoritesTableViewController.h"                                    //TEMP Persistance Fix
 #import "SWTableViewCell.h"
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
@@ -32,7 +31,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.savedPosts = [[NSMutableArray alloc] init];
     [self getData];
     [self updateTable];
 
@@ -200,7 +198,18 @@
         Post *post = self.posts[[self.tableView indexPathForCell:cell].row];
         if ([self isSaved:post])
         {
-            [self.savedPosts removeObject:post];
+            NSLog(@"attempting to remove");
+
+            for (Post *iteratedPost in self.savedPosts)
+            {
+                if ([iteratedPost.productLink isEqualToString:post.productLink])
+                {
+                    [self.savedPosts removeObject:iteratedPost];
+                    break;
+                }
+            }
+
+            NSLog(@"post remove saved posts: %@", self.savedPosts);
             cell.leftUtilityButtons = nil;
             cell.leftUtilityButtons = [self leftButtonsGrey:post];
         }
@@ -256,18 +265,19 @@
 
 - (void)getData
 {
+    self.savedPosts = [[NSMutableArray alloc] init];
+
     for (NSData *data in [[NSUserDefaults standardUserDefaults] objectForKey:kFavoritesArray])
     {
         [self.savedPosts addObject:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
-
-        NSLog(@"Data obj is: %@",data);
-        NSLog(@"Saved Post are: %@",self.savedPosts);
     }
 }
 
 - (void)setData
 {
     NSMutableArray *tempArrayOfPostsAsNSDataObjects = [[NSMutableArray alloc] init];
+    NSLog(@"SD saved posts: %@", self.savedPosts);
+
     for (Post *post in self.savedPosts)
     {
         [tempArrayOfPostsAsNSDataObjects addObject:[NSKeyedArchiver archivedDataWithRootObject:post]];
