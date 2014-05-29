@@ -46,7 +46,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tha-YB-mqz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1811" y="-67"/>
+            <point key="canvasLocation" x="1855" y="-67"/>
         </scene>
         <!--Favorites Table View Controller - Favorites-->
         <scene sceneID="PLv-uz-Jlp">
@@ -81,7 +81,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="aOl-wZ-ege" kind="push" id="L1j-fs-Ngd"/>
+                                    <segue destination="aOl-wZ-ege" kind="push" identifier="FavWebDetailSegue" id="L1j-fs-Ngd"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -209,7 +209,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lof-VG-lgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="c7j-vF-Q0A" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1812" y="617"/>
+            <point key="canvasLocation" x="1286" y="629"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MyQ-W6-RKM">
@@ -247,7 +247,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HKy-lx-hS9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1286" y="617"/>
+            <point key="canvasLocation" x="850" y="629"/>
         </scene>
     </scenes>
     <resources>

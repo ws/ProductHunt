@@ -9,5 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface FavoritesTableViewController : UITableViewController
-@property NSMutableArray *savedPosts;
 @end

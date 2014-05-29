@@ -31,7 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [self getData];                                                                                           //Persistence
+    [self getData];                                                                                             //Persistence
     [self updateTable];
 
     self.clearsSelectionOnViewWillAppear = YES;                                                                 //FixSelectionBug
@@ -184,7 +184,6 @@
         Post *post = self.posts[[self.tableView indexPathForCell:cell].row];
         if (post.saved)
         {
-            NSLog(@"unsaving post");
             [self.savedPosts removeObject:post];
             post.saved = NO;
             cell.leftUtilityButtons = nil;
@@ -192,14 +191,12 @@
         }
         else
         {
-            NSLog(@"saving post");
-            NSLog(@"Post: %@",post.title);
             [self.savedPosts addObject:post];
             post.saved = YES;
             cell.leftUtilityButtons = nil;
             cell.leftUtilityButtons = [self leftButtons:post];
         }
-        [self saveData];                                                                   //Persistence
+        [self setData];                                                                   //Persistence
     }
     else if (index == 1)
     {
@@ -244,10 +241,16 @@
 #pragma mark -
 #pragma mark Persistence
 
-- (void)saveData
+- (void)getData
 {
-    NSLog(@"Save Data Called");
-    //loop over self.savedPosts to create an array that mirrors it but with NSData objects then pass to standardUserDefaults
+    for (NSData *data in [[NSUserDefaults standardUserDefaults] objectForKey:kFavoritesArray])
+    {
+        [self.savedPosts addObject:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
+    }
+}
+
+- (void)setData
+{
     NSMutableArray *tempArrayOfPostsAsNSDataObjects = [[NSMutableArray alloc] init];
     for (Post *post in self.savedPosts)
     {
@@ -295,11 +298,7 @@
     }
     else
     {
-        NSLog(@"Favs segue");
-        NSLog(@"saved posts array: %@", self.savedPosts);
-
-        FavoritesTableViewController *fVC = segue.destinationViewController;
-        fVC.savedPosts = self.savedPosts;
+        //Segue to FavoritesTableViewController.m"
     }
 }
 

@@ -14,6 +14,7 @@
 
 @interface FavoritesTableViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property NSMutableArray *savedPosts;
 @end
 
 @implementation FavoritesTableViewController
@@ -21,25 +22,38 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [self getData];
-
-    NSLog(@"%@",self.savedPosts);
+    self.savedPosts = [[NSMutableArray alloc] init];
+    [self getData];
+    NSLog(@"Saved posts: %@", self.savedPosts);
 }
+
+#pragma mark -
+#pragma mark Persistence
 
 - (void)getData
 {
+    NSLog(@"GetData Called in FavoritesTableViewController.m");
+
     for (NSData *data in [[NSUserDefaults standardUserDefaults] objectForKey:kFavoritesArray])
     {
         [self.savedPosts addObject:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
     }
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (void)setData
 {
-    return 1;
+    NSLog(@"SetData Called");
+
+    NSMutableArray *tempArrayOfPostsAsNSDataObjects = [[NSMutableArray alloc] init];
+    for (Post *post in self.savedPosts)
+    {
+        [tempArrayOfPostsAsNSDataObjects addObject:[NSKeyedArchiver archivedDataWithRootObject:post]];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:tempArrayOfPostsAsNSDataObjects forKey:kFavoritesArray];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+#pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -62,11 +76,8 @@
     {
         [self.savedPosts removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self setData];
     }
-    else if (editingStyle == UITableViewCellEditingStyleInsert)
-    {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
@@ -86,9 +97,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-        Post *selectedPost = [self.savedPosts objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    if ([segue.identifier isEqualToString:@"FavWebDetailSegue"])
+    {
         WebViewController *webViewController = segue.destinationViewController;
-        webViewController.post = selectedPost;
+        webViewController.post = [self.savedPosts objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    }
 }
 
 #pragma mark -
@@ -99,16 +112,5 @@
 
     return 63; // 44 is Normal height
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

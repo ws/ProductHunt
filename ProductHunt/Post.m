@@ -42,6 +42,7 @@
     [coder encodeObject:self.commentLink forKey:kCommentLink];
     [coder encodeObject:[NSNumber numberWithBool:self.saved] forKey:kSaved];
 }
+
 -(id)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
@@ -53,6 +54,11 @@
     self.saved = [[decoder decodeObjectForKey:kSaved] boolValue];
 
     return  self;
+}
+
+- (NSString *)description
+{
+    return [[self.title stringByAppendingString:@": "] stringByAppendingString:self.productLink];
 }
 
 @end
