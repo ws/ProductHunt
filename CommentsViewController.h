@@ -11,4 +11,5 @@
 
 @interface CommentsViewController : UIViewController
 @property Post *post;
+@property BOOL loadingComments;
 @end

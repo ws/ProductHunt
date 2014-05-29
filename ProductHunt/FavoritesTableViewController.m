@@ -10,8 +10,8 @@
 #define kFavoritesArray @"favoritesArray"
 
 #import "FavoritesTableViewController.h"
+#import "CommentsViewController.h"
 #import "Post.h"
-#import "WebViewController.h"
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
 
@@ -133,8 +133,15 @@
 {
     if ([segue.identifier isEqualToString:@"FavWebDetailSegue"])
     {
-        WebViewController *webViewController = segue.destinationViewController;
-        webViewController.post = [self.savedPosts objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+        Post *selectedPost = [self.savedPosts objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        UINavigationController *navigationController = segue.destinationViewController;
+        CommentsViewController *commentsViewController = [navigationController.viewControllers objectAtIndex:0];
+        commentsViewController.post = selectedPost;
+        commentsViewController.loadingComments = NO;
+    }
+    else
+    {
+        NSLog(@"Error in segue");
     }
 }
 

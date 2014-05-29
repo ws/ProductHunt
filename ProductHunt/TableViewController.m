@@ -8,10 +8,11 @@
 
 #define kFavoritesArray @"favoritesArray"
 #define kAPI @"http://www.kimonolabs.com/api/7n9nf8aa?apikey=e928b25b9f388d5950b6f620673e010b"
+#define kProductDetailSegue @"ProductDetailSegue"
+#define kCommentSegue @"CommentSegue"
 
 #import "TableViewController.h"
 #import "Post.h"
-#import "WebViewController.h"
 #import "CommentsViewController.h"
 #import "SWTableViewCell.h"
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
@@ -198,8 +199,6 @@
         Post *post = self.posts[[self.tableView indexPathForCell:cell].row];
         if ([self isSaved:post])
         {
-            NSLog(@"attempting to remove");
-
             for (Post *iteratedPost in self.savedPosts)
             {
                 if ([iteratedPost.productLink isEqualToString:post.productLink])
@@ -208,8 +207,6 @@
                     break;
                 }
             }
-
-            NSLog(@"post remove saved posts: %@", self.savedPosts);
             cell.leftUtilityButtons = nil;
             cell.leftUtilityButtons = [self leftButtonsGrey:post];
         }
@@ -250,7 +247,7 @@
     else if (index == 2)
     {
         self.choosenCellPath = [self.tableView indexPathForCell:cell];
-        [self performSegueWithIdentifier:@"CommentSegue" sender:self];
+        [self performSegueWithIdentifier:kCommentSegue sender:self];
     }
 }
 
@@ -276,7 +273,6 @@
 - (void)setData
 {
     NSMutableArray *tempArrayOfPostsAsNSDataObjects = [[NSMutableArray alloc] init];
-    NSLog(@"SD saved posts: %@", self.savedPosts);
 
     for (Post *post in self.savedPosts)
     {
@@ -292,7 +288,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.choosenCellPath = indexPath;
-    [self performSegueWithIdentifier:@"WebDetailSegue" sender:self];
+    [self performSegueWithIdentifier:kProductDetailSegue sender:self];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -308,22 +304,25 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"WebDetailSegue"])
-    {
-        Post *selectedPost = [self.posts objectAtIndex:self.choosenCellPath.row];
-        WebViewController *webViewController = segue.destinationViewController;
-        webViewController.post = selectedPost;
-    }
-    else if ([segue.identifier isEqualToString:@"CommentSegue"])
+    if ([segue.identifier isEqualToString:kProductDetailSegue])
     {
         Post *selectedPost = [self.posts objectAtIndex:self.choosenCellPath.row];
         UINavigationController *navigationController = segue.destinationViewController;
         CommentsViewController *commentsViewController = [navigationController.viewControllers objectAtIndex:0];
         commentsViewController.post = selectedPost;
+        commentsViewController.loadingComments = NO;
+    }
+    else if ([segue.identifier isEqualToString:kCommentSegue])
+    {
+        Post *selectedPost = [self.posts objectAtIndex:self.choosenCellPath.row];
+        UINavigationController *navigationController = segue.destinationViewController;
+        CommentsViewController *commentsViewController = [navigationController.viewControllers objectAtIndex:0];
+        commentsViewController.post = selectedPost;
+        commentsViewController.loadingComments = YES;
     }
     else
     {
-        //Segue to FavoritesTableViewController.m"
+        NSLog(@"Error in segue");
     }
 }
 

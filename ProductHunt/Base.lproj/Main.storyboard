@@ -4,50 +4,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Web View Controller-->
-        <scene sceneID="v4u-Ef-LWl">
-            <objects>
-                <viewController id="aOl-wZ-ege" customClass="WebViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="0EA-ey-FfF"/>
-                        <viewControllerLayoutGuide type="bottom" id="gu5-Z7-7q4"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="fE3-V4-K1D">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Djw-QX-K9T">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <outlet property="delegate" destination="aOl-wZ-ege" id="WTt-m3-tWi"/>
-                                </connections>
-                            </webView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Djw-QX-K9T" firstAttribute="top" secondItem="fE3-V4-K1D" secondAttribute="top" id="63B-8W-Q8K"/>
-                            <constraint firstItem="Djw-QX-K9T" firstAttribute="leading" secondItem="fE3-V4-K1D" secondAttribute="leading" id="7QQ-Ca-GvU"/>
-                            <constraint firstAttribute="trailing" secondItem="Djw-QX-K9T" secondAttribute="trailing" id="dFh-c6-V9s"/>
-                            <constraint firstAttribute="bottom" secondItem="Djw-QX-K9T" secondAttribute="bottom" id="qEC-kt-Nvu"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="4iN-hk-XOR">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="qoC-ei-dpV">
-                            <connections>
-                                <action selector="share:" destination="aOl-wZ-ege" id="k6o-WS-dPa"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="webView" destination="Djw-QX-K9T" id="VBQ-ii-7WT"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tha-YB-mqz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1981" y="-441"/>
-        </scene>
         <!--Favorites Table View Controller - Favorites-->
         <scene sceneID="PLv-uz-Jlp">
             <objects>
@@ -57,11 +13,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavCell" textLabel="glN-jf-P31" detailTextLabel="lDf-y8-gU9" style="IBUITableViewCellStyleSubtitle" id="gLv-1H-tRQ">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavCell" textLabel="glN-jf-P31" detailTextLabel="lDf-y8-gU9" style="IBUITableViewCellStyleSubtitle" id="gLv-1H-tRQ">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gLv-1H-tRQ" id="kvn-n8-KQD">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="glN-jf-P31">
@@ -81,7 +37,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="aOl-wZ-ege" kind="push" identifier="FavWebDetailSegue" id="L1j-fs-Ngd"/>
+                                    <segue destination="CTn-So-qko" kind="modal" identifier="FavWebDetailSegue" id="Nca-dL-Ytl"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -97,7 +53,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KTW-sQ-GHA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1264" y="-816"/>
+            <point key="canvasLocation" x="1264" y="-884"/>
         </scene>
         <!--Table View Controller - Product Hunt-->
         <scene sceneID="VJj-OB-SyM">
@@ -108,11 +64,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="7Qy-cl-Bhw" detailTextLabel="nJW-mt-A7S" style="IBUITableViewCellStyleSubtitle" id="G9W-V3-Acz" customClass="SWTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="7Qy-cl-Bhw" detailTextLabel="nJW-mt-A7S" style="IBUITableViewCellStyleSubtitle" id="G9W-V3-Acz" customClass="SWTableViewCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G9W-V3-Acz" id="VTC-7Z-Npl">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="281" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Qy-cl-Bhw">
@@ -132,7 +88,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="aOl-wZ-ege" kind="push" identifier="WebDetailSegue" id="AAb-fi-mvQ"/>
+                                    <segue destination="CTn-So-qko" kind="modal" identifier="ProductDetailSegue" id="GbL-nH-rp9"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -156,7 +112,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C5w-q1-hWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1264" y="-111"/>
+            <point key="canvasLocation" x="1264" y="-103"/>
         </scene>
         <!--Comments View Controller - Comments-->
         <scene sceneID="r1A-fk-4rv">
@@ -209,7 +165,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lof-VG-lgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="c7j-vF-Q0A" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1264" y="629"/>
+            <point key="canvasLocation" x="2592" y="-545"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MyQ-W6-RKM">
@@ -228,7 +184,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1jD-dR-nFk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="653" y="-111"/>
+            <point key="canvasLocation" x="641" y="-103"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gbK-O7-QWI">
@@ -247,7 +203,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HKy-lx-hS9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="653" y="629"/>
+            <point key="canvasLocation" x="2049" y="-545"/>
         </scene>
     </scenes>
     <resources>
@@ -260,6 +216,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="L1j-fs-Ngd"/>
+        <segue reference="SfZ-0c-ctA"/>
     </inferredMetricsTieBreakers>
 </document>
