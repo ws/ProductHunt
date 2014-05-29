@@ -198,8 +198,6 @@
         Post *post = self.posts[[self.tableView indexPathForCell:cell].row];
         if ([self isSaved:post])
         {
-            NSLog(@"attempting to remove");
-
             for (Post *iteratedPost in self.savedPosts)
             {
                 if ([iteratedPost.productLink isEqualToString:post.productLink])
@@ -208,8 +206,6 @@
                     break;
                 }
             }
-
-            NSLog(@"post remove saved posts: %@", self.savedPosts);
             cell.leftUtilityButtons = nil;
             cell.leftUtilityButtons = [self leftButtonsGrey:post];
         }
@@ -276,7 +272,6 @@
 - (void)setData
 {
     NSMutableArray *tempArrayOfPostsAsNSDataObjects = [[NSMutableArray alloc] init];
-    NSLog(@"SD saved posts: %@", self.savedPosts);
 
     for (Post *post in self.savedPosts)
     {
