@@ -10,7 +10,10 @@
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
 
-@interface WebViewController () <UIWebViewDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate>          //NJKFullScreen (last 2)
+@interface WebViewController () <UIWebViewDelegate,
+                                UIScrollViewDelegate,                                                           //NJKFullScreen
+                                NJKScrollFullscreenDelegate>                                                    //NJKFullScreen
+
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
 @end
@@ -27,12 +30,12 @@
     [self.webView loadRequest:request];
     self.webView.scalesPageToFit = YES;
 
-    if (NO)                                                                                                     //NJKFullScreen
-    {                                                                                                           //NJKFullScreen
-        _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
-        self.webView.scrollView.delegate = (id)_scrollProxy;                                                    //NJKFullScreen
-        _scrollProxy.delegate = self;                                                                           //NJKFullScreen
-    }                                                                                                           //NJKFullScreen
+    if (YES)                                                                                                     //NJKFullScreen
+    {
+        _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];
+        self.webView.scrollView.delegate = (id)_scrollProxy;
+        _scrollProxy.delegate = self;
+    }
 }
 
 #pragma mark -

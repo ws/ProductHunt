@@ -20,6 +20,7 @@
 
 @interface TableViewController () <UIAlertViewDelegate, SWTableViewCellDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate> //NJK (last 2)
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property NSMutableArray *posts;
 @property NSIndexPath *choosenCellPath;
 @property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
@@ -33,16 +34,16 @@
     [super viewDidLoad];
     [self getData];
     [self updateTable];
-
     self.clearsSelectionOnViewWillAppear = YES;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    [self.activityIndicator stopAnimating];
 
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.tintColor = [UIColor orangeColor];
     [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
 
-    if (NO)                                                                                                    //NJKFullScreen
+    if (YES)                                                                                                     //NJKFullScreen
     {                                                                                                           //NJKFullScreen
         _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
         self.tableView.delegate = (id)_scrollProxy;                                                             //NJKFullScreen
@@ -111,7 +112,6 @@
              [self.posts addObject:post];
          }
          [self.tableView reloadData];
-         //stop load activity indicator
      }];
 }
 
