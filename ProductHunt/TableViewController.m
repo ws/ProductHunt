@@ -130,8 +130,15 @@
     SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
 
     Post *post = [self.posts objectAtIndex:indexPath.row];
+    if ([self isSaved:post])
+    {
+        cell.leftUtilityButtons = [self leftButtonsOrange:post];
+    }
+    else
+    {
+        cell.leftUtilityButtons = [self leftButtonsGrey:post];
+    }
 
-    cell.leftUtilityButtons = [self leftButtons:post];
     cell.delegate = self;
 
     cell.textLabel.text = post.title;
@@ -153,25 +160,34 @@
 #pragma mark -
 #pragma mark Custom Methods for on Swipe Buttons
 
-- (NSArray *)leftButtons:(Post *)post
+- (NSArray *)leftButtonsGrey:(Post *)post
 {
     NSMutableArray *leftUtilityButtons = [NSMutableArray new];
-    UIColor *saveStateColor;
 
-    if ([self isSaved:post])
-    {
-        saveStateColor = [UIColor colorWithRed:255/255.0f green:147/255.0f blue:39/255.0f alpha:1.0f]; //orange
-    }
-    else
-    {
-        saveStateColor = [UIColor colorWithRed:0.50f green:0.50f blue:0.50f alpha:1.0]; //gray
-    }
+    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:0.50f green:0.50f blue:0.50f alpha:1.0]
+                                                icon:[UIImage imageNamed:@"smallstar.png"]];
 
-    [leftUtilityButtons sw_addUtilityButtonWithColor:saveStateColor icon:[UIImage imageNamed:@"smallstar.png"]];
+    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1.0]
+                                                icon:[UIImage imageNamed:@"twitter.png"]];
 
-    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1.0] icon:[UIImage imageNamed:@"twitter.png"]];
+    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:0.55f green:0.27f blue:0.07f alpha:1.0]
+                                                icon:[UIImage imageNamed:@"comment.png"]];
 
-    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:0.55f green:0.27f blue:0.07f alpha:1.0] icon:[UIImage imageNamed:@"comment.png"]];
+    return leftUtilityButtons;
+}
+
+- (NSArray *)leftButtonsOrange:(Post *)post
+{
+    NSMutableArray *leftUtilityButtons = [NSMutableArray new];
+
+    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:255/255.0f green:147/255.0f blue:39/255.0f alpha:1.0f]
+                                                icon:[UIImage imageNamed:@"smallstar.png"]];
+
+    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1.0]
+                                                icon:[UIImage imageNamed:@"twitter.png"]];
+
+    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:0.55f green:0.27f blue:0.07f alpha:1.0]
+                                                icon:[UIImage imageNamed:@"comment.png"]];
 
     return leftUtilityButtons;
 }
@@ -186,13 +202,13 @@
         {
             [self.savedPosts removeObject:post];
             cell.leftUtilityButtons = nil;
-            cell.leftUtilityButtons = [self leftButtons:post];
+            cell.leftUtilityButtons = [self leftButtonsGrey:post];
         }
         else
         {
             [self.savedPosts addObject:post];
             cell.leftUtilityButtons = nil;
-            cell.leftUtilityButtons = [self leftButtons:post];
+            cell.leftUtilityButtons = [self leftButtonsOrange:post];
         }
         [self setData];
     }
@@ -248,7 +264,7 @@
 
 - (void)setData
 {
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kFavoritesArray];
+//    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kFavoritesArray];
 
     NSMutableArray *tempArrayOfPostsAsNSDataObjects = [[NSMutableArray alloc] init];
     for (Post *post in self.savedPosts)
