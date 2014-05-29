@@ -16,6 +16,10 @@
 @property NSString *commentLink;
 @property BOOL saved;
 
-- (Post *)initWithproductLink:(NSString *)productLink title:(NSString *)title subtitle:(NSString *)subtitle imageLink:(NSString *)imageLink commentLink:(NSString *)commentLink;
+- (Post *)initWithproductLink:(NSString *)productLink
+                        title:(NSString *)title
+                     subtitle:(NSString *)subtitle
+                    imageLink:(NSString *)imageLink
+                  commentLink:(NSString *)commentLink;
 
 @end

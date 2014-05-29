@@ -7,6 +7,7 @@
 //
 
 #define kFavoritesArray @"favoritesArray"
+#define kAPI @"http://www.kimonolabs.com/api/7n9nf8aa?apikey=e928b25b9f388d5950b6f620673e010b"
 
 #import "TableViewController.h"
 #import "Post.h"
@@ -31,12 +32,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.savedPosts = [[NSMutableArray alloc] init];
     [self getData];
     [self updateTable];
 
     self.clearsSelectionOnViewWillAppear = YES;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.savedPosts = [[NSMutableArray alloc] init];
 
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.tintColor = [UIColor orangeColor];
@@ -88,8 +89,7 @@
 {
     self.posts = [[NSMutableArray alloc] init];
 
-    NSURL *url = [NSURL URLWithString:@"http://www.kimonolabs.com/api/7n9nf8aa?apikey=e928b25b9f388d5950b6f620673e010b"];
-    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:url]
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kAPI]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
      {
@@ -128,8 +128,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
-
     Post *post = [self.posts objectAtIndex:indexPath.row];
+
     if ([self isSaved:post])
     {
         cell.leftUtilityButtons = [self leftButtonsOrange:post];
@@ -259,13 +259,14 @@
     for (NSData *data in [[NSUserDefaults standardUserDefaults] objectForKey:kFavoritesArray])
     {
         [self.savedPosts addObject:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
+
+        NSLog(@"Data obj is: %@",data);
+        NSLog(@"Saved Post are: %@",self.savedPosts);
     }
 }
 
 - (void)setData
 {
-//    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kFavoritesArray];
-
     NSMutableArray *tempArrayOfPostsAsNSDataObjects = [[NSMutableArray alloc] init];
     for (Post *post in self.savedPosts)
     {
@@ -286,7 +287,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self.tableView reloadData];        //May be unnecessary
+    [self.tableView reloadData];                                                                                //May be unnecessary
 
     NSIndexPath *selection = [self.tableView indexPathForSelectedRow];
     if (selection)
