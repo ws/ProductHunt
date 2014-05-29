@@ -24,8 +24,6 @@
 @property NSIndexPath *choosenCellPath;
 @property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
 @property NSMutableArray *savedPosts;
-@property BOOL setOrange;
-@property BOOL showImgs;
 @end
 
 @implementation TableViewController
@@ -34,11 +32,8 @@
 {
     [super viewDidLoad];
 
+//    [self.savedPosts addObjectsFromArray:[[NSUserDefaults standardUserDefaults] objectForKey:kFavoritesArray]]; //persistence
 
-    [self.savedPosts addObjectsFromArray:[[NSUserDefaults standardUserDefaults] objectForKey:kFavoritesArray]]; //check if nill issue
-
-    self.setOrange = NO;
-    self.showImgs = NO;
     [self updateTable];
 
     self.clearsSelectionOnViewWillAppear = YES;                                                                 //FixSelectionBug
@@ -135,17 +130,18 @@
 {
     SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
 
-    cell.leftUtilityButtons = [self leftButtons];
+    Post *post = [self.posts objectAtIndex:indexPath.row];
+
+    cell.leftUtilityButtons = [self leftButtons:post];
     cell.delegate = self;
 
-    Post *post = [self.posts objectAtIndex:indexPath.row];
     cell.textLabel.text = post.title;
     cell.detailTextLabel.text = post.subtitle;
     cell.detailTextLabel.textColor = [UIColor grayColor];
     cell.detailTextLabel.numberOfLines = 2;
     cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
-    if (self.showImgs)
+    if (NO)
     {
         NSURL *imageURL = [NSURL URLWithString:post.imageLink];
         NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
@@ -158,21 +154,21 @@
 #pragma mark -
 #pragma mark Custom Methods for on Swipe Buttons
 
-- (NSArray *)leftButtons
+- (NSArray *)leftButtons:(Post *)post
 {
     NSMutableArray *leftUtilityButtons = [NSMutableArray new];
-    UIColor *orangeOrGray;
+    UIColor *saveStateColor;
 
-    if (self.setOrange)
+    if (post.saved)
     {
-        orangeOrGray = [UIColor colorWithRed:255/255.0f green:147/255.0f blue:39/255.0f alpha:1.0f];
+        saveStateColor = [UIColor colorWithRed:255/255.0f green:147/255.0f blue:39/255.0f alpha:1.0f]; //orange
     }
     else
     {
-        orangeOrGray = [UIColor colorWithRed:0.50f green:0.50f blue:0.50f alpha:1.0];
+        saveStateColor = [UIColor colorWithRed:0.50f green:0.50f blue:0.50f alpha:1.0]; //gray
     }
 
-    [leftUtilityButtons sw_addUtilityButtonWithColor:orangeOrGray icon:[UIImage imageNamed:@"smallstar.png"]];
+    [leftUtilityButtons sw_addUtilityButtonWithColor:saveStateColor icon:[UIImage imageNamed:@"smallstar.png"]];
 
     [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1.0] icon:[UIImage imageNamed:@"twitter.png"]];
 
@@ -193,28 +189,18 @@
             NSLog(@"unsaving post");
             [self.savedPosts removeObject:post];
             post.saved = NO;
-            self.setOrange = NO;
             cell.leftUtilityButtons = nil;
-            cell.leftUtilityButtons = [self leftButtons];
+            cell.leftUtilityButtons = [self leftButtons:post];
         }
         else
         {
             NSLog(@"saving post");
             [self.savedPosts addObject:post];
             post.saved = YES;
-            self.setOrange = YES;
             cell.leftUtilityButtons = nil;
-            cell.leftUtilityButtons = [self leftButtons];
+            cell.leftUtilityButtons = [self leftButtons:post];
         }
-
-        //loop over self.posts to create an array that mirrors it but with NSData objects then pass to standardUserDefaults
-        NSMutableArray *tempArrayOfPostsAsDataObjects = [[NSMutableArray alloc] init];
-        for (Post *post in self.posts)
-        {
-            [tempArrayOfPostsAsDataObjects addObject:[NSKeyedArchiver archivedDataWithRootObject:post]];
-        }
-        [[NSUserDefaults standardUserDefaults] setObject:tempArrayOfPostsAsDataObjects forKey:kFavoritesArray];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+//        [self saveData];      //Persistence
     }
     else if (index == 1)
     {
@@ -254,6 +240,29 @@
 - (BOOL)swipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(SWTableViewCell *)cell
 {
     return true;
+}
+
+- (void)saveData                                                                                                            //Persistence
+{
+    //loop over self.posts to create an array that mirrors it but with NSData objects then pass to standardUserDefaults
+    NSMutableArray *tempArrayOfPostsAsDataObjects = [[NSMutableArray alloc] init];
+    for (Post *post in self.posts)
+    {
+        [tempArrayOfPostsAsDataObjects addObject:[NSKeyedArchiver archivedDataWithRootObject:post]];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:tempArrayOfPostsAsDataObjects forKey:kFavoritesArray];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+//    NSMutableArray *tempArrayOfOutput;
+
+//    for (<#type *object#> in <#collection#>)
+//    {
+//
+//    }
+
+    //    NSData *d = [[NSUserDefaults standardUserDefaults] objectForKey:kObject];
+    //    CustomObject *aObject = [NSKeyedUnarchiver unarchiveObjectWithData:d];
+    //    NSLog(@"%@",post.title);
 }
 
 #pragma mark -
