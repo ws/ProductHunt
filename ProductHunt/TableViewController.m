@@ -31,9 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-//    [self.savedPosts addObjectsFromArray:[[NSUserDefaults standardUserDefaults] objectForKey:kFavoritesArray]]; //persistence
-
+//    [self getData];                                                                                           //Persistence
     [self updateTable];
 
     self.clearsSelectionOnViewWillAppear = YES;                                                                 //FixSelectionBug
@@ -177,7 +175,6 @@
     return leftUtilityButtons;
 }
 
-
 // click event on left utility button
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index
 {
@@ -242,7 +239,10 @@
     return true;
 }
 
-- (void)saveData                                                                                                            //Persistence
+#pragma mark -
+#pragma mark Persistence
+
+- (void)saveData
 {
     //loop over self.posts to create an array that mirrors it but with NSData objects then pass to standardUserDefaults
     NSMutableArray *tempArrayOfPostsAsDataObjects = [[NSMutableArray alloc] init];
@@ -252,17 +252,11 @@
     }
     [[NSUserDefaults standardUserDefaults] setObject:tempArrayOfPostsAsDataObjects forKey:kFavoritesArray];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
-//    NSMutableArray *tempArrayOfOutput;
-
-//    for (<#type *object#> in <#collection#>)
-//    {
-//
-//    }
-
-    //    NSData *d = [[NSUserDefaults standardUserDefaults] objectForKey:kObject];
-    //    CustomObject *aObject = [NSKeyedUnarchiver unarchiveObjectWithData:d];
-    //    NSLog(@"%@",post.title);
+- (void)getData
+{
+    [self.posts addObjectsFromArray:[[NSUserDefaults standardUserDefaults] objectForKey:kFavoritesArray]];
 }
 
 #pragma mark -
