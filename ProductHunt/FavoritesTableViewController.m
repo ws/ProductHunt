@@ -71,7 +71,7 @@
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return NO;
+    return NO; //change to YES to get delete swipe on cell
 }
 
 // Override to support editing the table view.
@@ -106,6 +106,20 @@
     {
         WebViewController *webViewController = segue.destinationViewController;
         webViewController.post = [self.savedPosts objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+    }
+}
+
+#pragma mark -
+#pragma mark Deselection fix
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    //    [super viewWillAppear:animated];
+
+    NSIndexPath *selection = [self.tableView indexPathForSelectedRow];
+    if (selection)
+    {
+        [self.tableView deselectRowAtIndexPath:selection animated:YES];
     }
 }
 
