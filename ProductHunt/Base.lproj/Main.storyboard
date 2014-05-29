@@ -48,7 +48,7 @@
             </objects>
             <point key="canvasLocation" x="1811" y="-67"/>
         </scene>
-        <!--Favorites Table View Controller-->
+        <!--Favorites Table View Controller - Favorites-->
         <scene sceneID="PLv-uz-Jlp">
             <objects>
                 <tableViewController id="Mrf-pK-lkK" customClass="FavoritesTableViewController" sceneMemberID="viewController">
@@ -57,13 +57,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavCell" id="gLv-1H-tRQ">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavCell" textLabel="glN-jf-P31" detailTextLabel="lDf-y8-gU9" style="IBUITableViewCellStyleSubtitle" id="gLv-1H-tRQ">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gLv-1H-tRQ" id="kvn-n8-KQD">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="glN-jf-P31">
+                                            <rect key="frame" x="15" y="3" width="34" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lDf-y8-gU9">
+                                            <rect key="frame" x="15" y="25" width="43" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="aOl-wZ-ege" kind="push" id="L1j-fs-Ngd"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -71,6 +90,10 @@
                             <outlet property="delegate" destination="Mrf-pK-lkK" id="AHb-g3-QBw"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Favorites" id="ghk-MS-RNb"/>
+                    <connections>
+                        <outlet property="tableView" destination="wDa-cx-72Z" id="v3D-8j-6ms"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KTW-sQ-GHA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -120,6 +143,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Product Hunt" id="yR6-gr-mye">
                         <barButtonItem key="backBarButtonItem" title="Back" id="mo9-A1-7Dl"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="6Xj-tz-dK0">
+                            <connections>
+                                <segue destination="Mrf-pK-lkK" kind="push" identifier="FavoritesPushSegue" id="3Ye-FW-tpm"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="MCE-sH-xqm" id="Oev-Hi-QCf"/>
@@ -231,4 +259,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="L1j-fs-Ngd"/>
+    </inferredMetricsTieBreakers>
 </document>

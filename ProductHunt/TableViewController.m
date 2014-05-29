@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 SapanBhuta. All rights reserved.
 //
 
-#define kFavoritesArray @"favorites"
-#define kPost @"Post"
+#define kFavoritesArray @"favoritesArray"
 
 #import "TableViewController.h"
 #import "Post.h"
 #import "WebViewController.h"
 #import "CommentsViewController.h"
+#import "FavoritesTableViewController.h"                                    //TEMP Persistance Fix
 #import "SWTableViewCell.h"
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
@@ -36,6 +36,7 @@
 
     self.clearsSelectionOnViewWillAppear = YES;                                                                 //FixSelectionBug
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.savedPosts = [[NSMutableArray alloc] init];
 
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.tintColor = [UIColor orangeColor];
@@ -192,12 +193,13 @@
         else
         {
             NSLog(@"saving post");
+            NSLog(@"Post: %@",post.title);
             [self.savedPosts addObject:post];
             post.saved = YES;
             cell.leftUtilityButtons = nil;
             cell.leftUtilityButtons = [self leftButtons:post];
         }
-//        [self saveData];      //Persistence
+        [self saveData];                                                                   //Persistence
     }
     else if (index == 1)
     {
@@ -244,19 +246,15 @@
 
 - (void)saveData
 {
-    //loop over self.posts to create an array that mirrors it but with NSData objects then pass to standardUserDefaults
-    NSMutableArray *tempArrayOfPostsAsDataObjects = [[NSMutableArray alloc] init];
-    for (Post *post in self.posts)
+    NSLog(@"Save Data Called");
+    //loop over self.savedPosts to create an array that mirrors it but with NSData objects then pass to standardUserDefaults
+    NSMutableArray *tempArrayOfPostsAsNSDataObjects = [[NSMutableArray alloc] init];
+    for (Post *post in self.savedPosts)
     {
-        [tempArrayOfPostsAsDataObjects addObject:[NSKeyedArchiver archivedDataWithRootObject:post]];
+        [tempArrayOfPostsAsNSDataObjects addObject:[NSKeyedArchiver archivedDataWithRootObject:post]];
     }
-    [[NSUserDefaults standardUserDefaults] setObject:tempArrayOfPostsAsDataObjects forKey:kFavoritesArray];
+    [[NSUserDefaults standardUserDefaults] setObject:tempArrayOfPostsAsNSDataObjects forKey:kFavoritesArray];
     [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)getData
-{
-    [self.posts addObjectsFromArray:[[NSUserDefaults standardUserDefaults] objectForKey:kFavoritesArray]];
 }
 
 #pragma mark -
@@ -288,12 +286,20 @@
         WebViewController *webViewController = segue.destinationViewController;
         webViewController.post = selectedPost;
     }
-    else
+    else if ([segue.identifier isEqualToString:@"CommentSegue"])
     {
         Post *selectedPost = [self.posts objectAtIndex:self.choosenCellPath.row];
         UINavigationController *navigationController = segue.destinationViewController;
         CommentsViewController *commentsViewController = [navigationController.viewControllers objectAtIndex:0];
         commentsViewController.post = selectedPost;
+    }
+    else
+    {
+        NSLog(@"Favs segue");
+        NSLog(@"saved posts array: %@", self.savedPosts);
+
+        FavoritesTableViewController *fVC = segue.destinationViewController;
+        fVC.savedPosts = self.savedPosts;
     }
 }
 
