@@ -31,10 +31,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self getData];                                                                                             //Persistence
+    [self getData];
     [self updateTable];
 
-    self.clearsSelectionOnViewWillAppear = YES;                                                                 //FixSelectionBug
+    self.clearsSelectionOnViewWillAppear = YES;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.savedPosts = [[NSMutableArray alloc] init];
 
@@ -158,7 +158,7 @@
     NSMutableArray *leftUtilityButtons = [NSMutableArray new];
     UIColor *saveStateColor;
 
-    if (post.saved)
+    if ([self isSaved:post])
     {
         saveStateColor = [UIColor colorWithRed:255/255.0f green:147/255.0f blue:39/255.0f alpha:1.0f]; //orange
     }
@@ -182,21 +182,19 @@
     if (index == 0)
     {
         Post *post = self.posts[[self.tableView indexPathForCell:cell].row];
-        if (post.saved)
+        if ([self isSaved:post])
         {
             [self.savedPosts removeObject:post];
-            post.saved = NO;
             cell.leftUtilityButtons = nil;
             cell.leftUtilityButtons = [self leftButtons:post];
         }
         else
         {
             [self.savedPosts addObject:post];
-            post.saved = YES;
             cell.leftUtilityButtons = nil;
             cell.leftUtilityButtons = [self leftButtons:post];
         }
-        [self setData];                                                                   //Persistence
+        [self setData];
     }
     else if (index == 1)
     {
@@ -211,7 +209,6 @@
             SLComposeViewController *tweetSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
             [tweetSheet setInitialText:text];
             [tweetSheet addURL:[NSURL URLWithString:url]];
-//            [tweetSheet addImage:[UIImage imageNamed:self.imageString]];
             [self presentViewController:tweetSheet animated:YES completion:nil];
         }
         else
@@ -251,6 +248,8 @@
 
 - (void)setData
 {
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kFavoritesArray];
+
     NSMutableArray *tempArrayOfPostsAsNSDataObjects = [[NSMutableArray alloc] init];
     for (Post *post in self.savedPosts)
     {
@@ -267,12 +266,11 @@
 {
     self.choosenCellPath = indexPath;
     [self performSegueWithIdentifier:@"WebDetailSegue" sender:self];
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-//    [super viewWillAppear:animated];
+    [self.tableView reloadData];        //May be unnecessary
 
     NSIndexPath *selection = [self.tableView indexPathForSelectedRow];
     if (selection)
@@ -304,7 +302,6 @@
 
 - (IBAction)unwind:(UIStoryboardSegue *)segue
 {
-
 }
 
 #pragma mark -
@@ -315,5 +312,21 @@
 
     return 63; // 44 is Normal height
 }
+
+#pragma mark -
+#pragma mark Check if saved
+
+- (BOOL)isSaved:(Post *)postToCheck
+{
+    for (Post *savedPost in self.savedPosts)
+    {
+        if ([postToCheck.productLink isEqualToString:savedPost.productLink])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 @end

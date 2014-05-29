@@ -6,15 +6,19 @@
 //  Copyright (c) 2014 SapanBhuta. All rights reserved.
 //
 
+
 #define kFavoritesArray @"favoritesArray"
 
 #import "FavoritesTableViewController.h"
 #import "Post.h"
 #import "WebViewController.h"
+#import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
+#import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
 
-@interface FavoritesTableViewController ()
+@interface FavoritesTableViewController () <UIScrollViewDelegate, NJKScrollFullscreenDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property NSMutableArray *savedPosts;
+@property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
 @end
 
 @implementation FavoritesTableViewController
@@ -24,7 +28,36 @@
     [super viewDidLoad];
     self.savedPosts = [[NSMutableArray alloc] init];
     [self getData];
-    NSLog(@"Saved posts: %@", self.savedPosts);
+
+    if (self.savedPosts.count > 10)                                                                             //NJKFullScreen
+    {                                                                                                           //NJKFullScreen
+        _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
+        self.tableView.delegate = (id)_scrollProxy;                                                             //NJKFullScreen
+        _scrollProxy.delegate = self;                                                                           //NJKFullScreen
+    }                                                                                                           //NJKFullScreen
+}
+
+#pragma mark -
+#pragma mark NJKFullScreen Pod Delegate Methods
+
+- (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollUp:(CGFloat)deltaY
+{
+    [self moveNavigtionBar:deltaY animated:YES];
+}
+
+- (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollDown:(CGFloat)deltaY
+{
+    [self moveNavigtionBar:deltaY animated:YES];
+}
+
+- (void)scrollFullScreenScrollViewDidEndDraggingScrollUp:(NJKScrollFullScreen *)proxy
+{
+    [self hideNavigationBar:YES];
+}
+
+- (void)scrollFullScreenScrollViewDidEndDraggingScrollDown:(NJKScrollFullScreen *)proxy
+{
+    [self showNavigationBar:YES];
 }
 
 #pragma mark -
@@ -32,8 +65,6 @@
 
 - (void)getData
 {
-    NSLog(@"GetData Called in FavoritesTableViewController.m");
-
     for (NSData *data in [[NSUserDefaults standardUserDefaults] objectForKey:kFavoritesArray])
     {
         [self.savedPosts addObject:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
@@ -42,15 +73,7 @@
 
 - (void)setData
 {
-    NSLog(@"SetData Called");
-
-    NSMutableArray *tempArrayOfPostsAsNSDataObjects = [[NSMutableArray alloc] init];
-    for (Post *post in self.savedPosts)
-    {
-        [tempArrayOfPostsAsNSDataObjects addObject:[NSKeyedArchiver archivedDataWithRootObject:post]];
-    }
-    [[NSUserDefaults standardUserDefaults] setObject:tempArrayOfPostsAsNSDataObjects forKey:kFavoritesArray];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+//    implement once editing is renabled
 }
 
 #pragma mark - Table view data source
@@ -64,8 +87,13 @@
 {
     Post *post = self.savedPosts[indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FavCell" forIndexPath:indexPath];
+
     cell.textLabel.text = post.title;
     cell.detailTextLabel.text = post.subtitle;
+    cell.detailTextLabel.textColor = [UIColor grayColor];
+    cell.detailTextLabel.numberOfLines = 2;
+    cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+
     return cell;
 }
 
