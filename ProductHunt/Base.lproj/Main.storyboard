@@ -131,9 +131,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="aOl-wZ-ege" kind="push" identifier="WebDetailSegue" id="AAb-fi-mvQ"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -152,6 +149,7 @@
                     <connections>
                         <outlet property="tableView" destination="MCE-sH-xqm" id="Oev-Hi-QCf"/>
                         <segue destination="CTn-So-qko" kind="modal" identifier="CommentSegue" id="SfZ-0c-ctA"/>
+                        <segue destination="aOl-wZ-ege" kind="push" identifier="WebDetailSegue" id="7GB-OR-Vsu"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C5w-q1-hWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -260,6 +258,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="L1j-fs-Ngd"/>
+        <segue reference="7GB-OR-Vsu"/>
     </inferredMetricsTieBreakers>
 </document>

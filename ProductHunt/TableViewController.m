@@ -42,7 +42,7 @@
     [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
 
-    if (YES)                                                                                                    //NJKFullScreen
+    if (NO)                                                                                                    //NJKFullScreen
     {                                                                                                           //NJKFullScreen
         _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
         self.tableView.delegate = (id)_scrollProxy;                                                             //NJKFullScreen

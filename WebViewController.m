@@ -9,7 +9,6 @@
 #import "WebViewController.h"
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
-#import "SuProgress.h"                                                                                          //SuProgress
 
 @interface WebViewController () <UIWebViewDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate>          //NJKFullScreen (last 2)
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -22,13 +21,13 @@
 {
     [super viewDidLoad];
     self.title = self.post.title;
-    [self SuProgressForWebView:self.webView];                                                                   //SuProgress
+
     NSURL *url = [NSURL URLWithString:self.post.productLink];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:request];
     self.webView.scalesPageToFit = YES;
 
-    if (YES)                                                                                                    //NJKFullScreen
+    if (NO)                                                                                                     //NJKFullScreen
     {                                                                                                           //NJKFullScreen
         _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
         self.webView.scrollView.delegate = (id)_scrollProxy;                                                    //NJKFullScreen
@@ -64,29 +63,37 @@
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
-//    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-//    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    NSLog(@"Error: %@", error);
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (event.subtype == UIEventSubtypeMotionShake)
     {
-//        [self.webView reload];
+        [self.webView reload];
     }
 }
 
 #pragma mark -
 #pragma mark Kill Web Load on View Change
 
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [self.webView stopLoading];
-//    [super viewWillDisappear:animated];
+    self.webView.delegate = nil;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 #pragma mark -
@@ -98,7 +105,6 @@
     NSString *subtitle = self.post.subtitle;
     NSString *text = [@"Check out: " stringByAppendingString:[[title stringByAppendingString:@" - "] stringByAppendingString:subtitle]];
     NSURL *url = [NSURL URLWithString:self.post.productLink];
-//    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.post.imageLink]]];
 
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[text, url]
                                                                              applicationActivities:nil];

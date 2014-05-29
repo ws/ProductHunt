@@ -1,3 +1,3 @@
 pod 'SWTableViewCell';
 pod 'NJKScrollFullScreen';
-pod 'SuProgress';
+pod 'NJKWebViewProgress';
