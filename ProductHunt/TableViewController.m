@@ -31,6 +31,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"View Did Load");
     [super viewDidLoad];
     [self getData];
     [self updateTable];
@@ -292,6 +293,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    NSLog(@"Reloading Data");
+    [self getData];
     [self.tableView reloadData];                                                                                //May be unnecessary
 
     NSIndexPath *selection = [self.tableView indexPathForSelectedRow];

@@ -74,7 +74,14 @@
 
 - (void)setData
 {
-//    implement once editing is renabled
+    NSMutableArray *tempArrayOfPostsAsNSDataObjects = [[NSMutableArray alloc] init];
+
+    for (Post *post in self.savedPosts)
+    {
+        [tempArrayOfPostsAsNSDataObjects addObject:[NSKeyedArchiver archivedDataWithRootObject:post]];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:tempArrayOfPostsAsNSDataObjects forKey:kFavoritesArray];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - Table view data source
@@ -82,6 +89,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.savedPosts.count;
+    [self setData];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -100,7 +108,7 @@
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return NO; //change to YES to get delete swipe on cell
+    return YES; //change to YES to get delete swipe on cell
 }
 
 // Override to support editing the table view.
