@@ -7,17 +7,12 @@
 //
 
 #import "WebViewController.h"
-#import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
-#import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
+#import "CommentsViewController.h"
 #import "SuProgress.h"
 
-@interface WebViewController () <UIWebViewDelegate,
-                                UIScrollViewDelegate,                                                           //NJKFullScreen
-                                NJKScrollFullscreenDelegate>                                                    //NJKFullScreen
-
+@interface WebViewController () <UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
-@property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
 @end
 
 @implementation WebViewController
@@ -27,42 +22,24 @@
     [super viewDidLoad];
     self.title = self.post.title;
 
+
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                                  target:self
+                                                                                  action:@selector(share)];
+
+    UIBarButtonItem *composeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
+                                                                                target:self
+                                                                                action:@selector(comment)];
+
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:shareButton, composeButton, nil];
+
+
 //    [self SuProgressForWebView:self.webView];
 
     NSURL *url = [NSURL URLWithString:self.post.productLink];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:request];
     self.webView.scalesPageToFit = YES;
-
-    if (NO)                                                                                                     //NJKFullScreen
-    {
-        _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];
-        self.webView.scrollView.delegate = (id)_scrollProxy;
-        _scrollProxy.delegate = self;
-    }
-}
-
-#pragma mark -
-#pragma mark NJKFullScreen Pod Delegate Methods
-
-- (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollUp:(CGFloat)deltaY
-{
-    [self moveNavigtionBar:deltaY animated:YES];
-}
-
-- (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollDown:(CGFloat)deltaY
-{
-    [self moveNavigtionBar:deltaY animated:YES];
-}
-
-- (void)scrollFullScreenScrollViewDidEndDraggingScrollUp:(NJKScrollFullScreen *)proxy
-{
-    [self hideNavigationBar:YES];
-}
-
-- (void)scrollFullScreenScrollViewDidEndDraggingScrollDown:(NJKScrollFullScreen *)proxy
-{
-    [self showNavigationBar:YES];
 }
 
 #pragma mark -
@@ -109,7 +86,7 @@
 #pragma mark -
 #pragma mark Share
 
-- (IBAction)share:(id)sender
+- (void)share
 {
     NSString *title = self.post.title;
     NSString *subtitle = self.post.subtitle;
@@ -125,6 +102,18 @@
                                          UIActivityTypePostToVimeo];
 
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)comment
+{
+    [self performSegueWithIdentifier:@"WebToCommentModal" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    UINavigationController *navigationController = segue.destinationViewController;
+    CommentsViewController *commentsViewController = [navigationController.viewControllers objectAtIndex:0];
+    commentsViewController.post = self.post;
 }
 
 @end

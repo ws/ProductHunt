@@ -6,12 +6,6 @@
 // project.
 
 
-// NJKScrollFullScreen
-#define COCOAPODS_POD_AVAILABLE_NJKScrollFullScreen
-#define COCOAPODS_VERSION_MAJOR_NJKScrollFullScreen 0
-#define COCOAPODS_VERSION_MINOR_NJKScrollFullScreen 2
-#define COCOAPODS_VERSION_PATCH_NJKScrollFullScreen 2
-
 // SWTableViewCell
 #define COCOAPODS_POD_AVAILABLE_SWTableViewCell
 #define COCOAPODS_VERSION_MAJOR_SWTableViewCell 0

@@ -1,15 +1,12 @@
 PODS:
-  - NJKScrollFullScreen (0.2.2)
   - SuProgress (0.8.1)
   - SWTableViewCell (0.3.0)
 
 DEPENDENCIES:
-  - NJKScrollFullScreen
   - SuProgress
   - SWTableViewCell
 
 SPEC CHECKSUMS:
-  NJKScrollFullScreen: 226315cb870d997910f48614a613e7b95b9550d4
   SuProgress: b4e7347250f759a2b7672820687754833896f01c
   SWTableViewCell: 1725f7607ce4c154264c18aeb78e4636b11b0b29
 

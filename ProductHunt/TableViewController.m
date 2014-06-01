@@ -14,20 +14,14 @@
 #import "WebViewController.h"
 #import "CommentsViewController.h"
 #import "SWTableViewCell.h"
-#import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
-#import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
 
 @import Twitter;
 
-@interface TableViewController () <UIAlertViewDelegate,
-                                   SWTableViewCellDelegate,
-                                   UIScrollViewDelegate,                                                        //NJKFullScreen
-                                   NJKScrollFullscreenDelegate>                                                 //NJKFullScreen
+@interface TableViewController () <UIAlertViewDelegate, SWTableViewCellDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property NSMutableArray *posts;
 @property NSIndexPath *choosenCellPath;
-@property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
 @property NSMutableArray *savedPosts;
 @property BOOL firstTimeLoad;
 @end
@@ -47,36 +41,6 @@
     refresh.tintColor = [UIColor orangeColor];
     [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
-
-    if (NO)                                                                                                     //NJKFullScreen
-    {                                                                                                           //NJKFullScreen
-        _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
-        self.tableView.delegate = (id)_scrollProxy;                                                             //NJKFullScreen
-        _scrollProxy.delegate = self;                                                                           //NJKFullScreen
-    }                                                                                                           //NJKFullScreen
-}
-
-#pragma mark -
-#pragma mark NJKFullScreen Pod Delegate Methods
-
-- (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollUp:(CGFloat)deltaY
-{
-    [self moveNavigtionBar:deltaY animated:YES];
-}
-
-- (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollDown:(CGFloat)deltaY
-{
-    [self moveNavigtionBar:deltaY animated:YES];
-}
-
-- (void)scrollFullScreenScrollViewDidEndDraggingScrollUp:(NJKScrollFullScreen *)proxy
-{
-    [self hideNavigationBar:YES];
-}
-
-- (void)scrollFullScreenScrollViewDidEndDraggingScrollDown:(NJKScrollFullScreen *)proxy
-{
-    [self showNavigationBar:YES];
 }
 
 #pragma mark -

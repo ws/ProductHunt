@@ -38,16 +38,11 @@
                             <constraint firstAttribute="bottom" secondItem="Djw-QX-K9T" secondAttribute="bottom" id="qEC-kt-Nvu"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="4iN-hk-XOR">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="qoC-ei-dpV">
-                            <connections>
-                                <action selector="share:" destination="aOl-wZ-ege" id="k6o-WS-dPa"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="4iN-hk-XOR"/>
                     <connections>
                         <outlet property="activityView" destination="xWu-B1-YlJ" id="v1W-4o-Y3S"/>
                         <outlet property="webView" destination="Djw-QX-K9T" id="VBQ-ii-7WT"/>
+                        <segue destination="CTn-So-qko" kind="modal" identifier="WebToCommentModal" id="fpc-YR-rvK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tha-YB-mqz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -219,7 +214,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lof-VG-lgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="c7j-vF-Q0A" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1264" y="629"/>
+            <point key="canvasLocation" x="1981" y="629"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MyQ-W6-RKM">
@@ -257,7 +252,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HKy-lx-hS9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="653" y="629"/>
+            <point key="canvasLocation" x="1264" y="629"/>
         </scene>
     </scenes>
     <resources>
@@ -270,6 +265,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="fpc-YR-rvK"/>
         <segue reference="7GB-OR-Vsu"/>
     </inferredMetricsTieBreakers>
 </document>

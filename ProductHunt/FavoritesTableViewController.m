@@ -10,15 +10,12 @@
 #define kFavoritesArray @"favoritesArray"
 
 #import "FavoritesTableViewController.h"
-#import "Post.h"
 #import "WebViewController.h"
-#import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
-#import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
+#import "Post.h"
 
-@interface FavoritesTableViewController () <UIScrollViewDelegate, NJKScrollFullscreenDelegate>
+@interface FavoritesTableViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property NSMutableArray *savedPosts;
-@property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
 @end
 
 @implementation FavoritesTableViewController
@@ -27,36 +24,6 @@
 {
     [super viewDidLoad];
     [self getData];
-
-    if (NO)                                                                             //NJKFullScreen
-    {                                                                                                           //NJKFullScreen
-        _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
-        self.tableView.delegate = (id)_scrollProxy;                                                             //NJKFullScreen
-        _scrollProxy.delegate = self;                                                                           //NJKFullScreen
-    }                                                                                                           //NJKFullScreen
-}
-
-#pragma mark -
-#pragma mark NJKFullScreen Pod Delegate Methods
-
-- (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollUp:(CGFloat)deltaY
-{
-    [self moveNavigtionBar:deltaY animated:YES];
-}
-
-- (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollDown:(CGFloat)deltaY
-{
-    [self moveNavigtionBar:deltaY animated:YES];
-}
-
-- (void)scrollFullScreenScrollViewDidEndDraggingScrollUp:(NJKScrollFullScreen *)proxy
-{
-    [self hideNavigationBar:YES];
-}
-
-- (void)scrollFullScreenScrollViewDidEndDraggingScrollDown:(NJKScrollFullScreen *)proxy
-{
-    [self showNavigationBar:YES];
 }
 
 #pragma mark -
