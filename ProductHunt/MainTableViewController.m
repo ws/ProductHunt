@@ -1,5 +1,5 @@
 //
-//  TableViewController.m
+//  MainTableViewController.m
 //  ProductHunt
 //
 //  Created by Sapan Bhuta on 5/21/14.
@@ -9,47 +9,53 @@
 #define kFavoritesArray @"favoritesArray"
 #define kAPI @"http://www.kimonolabs.com/api/7n9nf8aa?apikey=e928b25b9f388d5950b6f620673e010b"
 
-#import "TableViewController.h"
+#import "MainTableViewController.h"
 #import "Post.h"
 #import "WebViewController.h"
 #import "CommentsViewController.h"
 #import "SWTableViewCell.h"
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
-@import Twitter;
+@import Twitter;                                                                                                //Twitter Activity Sheet
 
-@interface TableViewController () <UIAlertViewDelegate, SWTableViewCellDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate> //NJK (last 2)
+@interface MainTableViewController () <UIAlertViewDelegate,
+                                    SWTableViewCellDelegate,                                                    //SWTableViewCell
+                                    UIScrollViewDelegate,                                                       //NJKFullScreen
+                                    NJKScrollFullscreenDelegate>                                                //NJKFullScreen
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property NSMutableArray *posts;
 @property NSIndexPath *choosenCellPath;
 @property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
 @property NSMutableArray *savedPosts;
 @end
 
-@implementation TableViewController
+@implementation MainTableViewController
 
 - (void)viewDidLoad
 {
-    NSLog(@"View Did Load");
+    NSLog(@"MainTVC: View Did Load");
     [super viewDidLoad];
+
+//    self.navigationController.navigationBar.topItem.title = @"Product Hunt";
+//    self.navigationController.navigationBar.backItem.title = @"Back";
+
     [self getData];
     [self updateTable];
+
     self.clearsSelectionOnViewWillAppear = YES;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    [self.activityIndicator stopAnimating];
 
-    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    refresh.tintColor = [UIColor orangeColor];
-    [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
-    self.refreshControl = refresh;
+//    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+//    refresh.tintColor = [UIColor orangeColor];
+//    [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
+//    self.refreshControl = refresh;
 
-    if (YES)                                                                                                     //NJKFullScreen
-    {                                                                                                           //NJKFullScreen
-        _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
-        self.tableView.delegate = (id)_scrollProxy;                                                             //NJKFullScreen
-        _scrollProxy.delegate = self;                                                                           //NJKFullScreen
-    }                                                                                                           //NJKFullScreen
+    if (NO)                                                                                                    //NJKFullScreen
+    {
+        _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];
+        self.tableView.delegate = (id)_scrollProxy;
+        _scrollProxy.delegate = self;
+    }
 }
 
 #pragma mark -
@@ -82,7 +88,7 @@
 {
     [self getPostsFromApi];
     [self.tableView reloadData];
-    [self.refreshControl endRefreshing];
+//    [self.refreshControl endRefreshing];
 }
 
 - (void)getPostsFromApi
@@ -293,9 +299,10 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"Reloading Data");
+    NSLog(@"MainTVC: View Will Appear");
+
     [self getData];
-    [self.tableView reloadData];                                                                                //May be unnecessary
+    [self.tableView reloadData];    //refreshes Data when returning from Favorites so saves are updated
 
     NSIndexPath *selection = [self.tableView indexPathForSelectedRow];
     if (selection)

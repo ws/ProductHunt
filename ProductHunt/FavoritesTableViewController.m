@@ -25,10 +25,12 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"FavoritesTVC: View Did Load");
+
     [super viewDidLoad];
     [self getData];
 
-    if (self.savedPosts.count > 10)                                                                             //NJKFullScreen
+    if(NO)//if (self.savedPosts.count > 10)                                                                             //NJKFullScreen
     {                                                                                                           //NJKFullScreen
         _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
         self.tableView.delegate = (id)_scrollProxy;                                                             //NJKFullScreen
@@ -152,6 +154,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     //    [super viewWillAppear:animated];
+    NSLog(@"FavoritesTVC: View Will Appear");
 
     NSIndexPath *selection = [self.tableView indexPathForSelectedRow];
     if (selection)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E1F4D70193A5208000B5588 /* RootPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F4D6F193A5208000B5588 /* RootPageViewController.m */; };
 		8E49907E19247394004D4352 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E49907D19247394004D4352 /* Foundation.framework */; };
 		8E49908019247394004D4352 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E49907F19247394004D4352 /* CoreGraphics.framework */; };
 		8E49908219247394004D4352 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E49908119247394004D4352 /* UIKit.framework */; };
@@ -20,7 +21,7 @@
 		8E49909F19247395004D4352 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E49908119247394004D4352 /* UIKit.framework */; };
 		8E4990A719247395004D4352 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E4990A519247395004D4352 /* InfoPlist.strings */; };
 		8E4990A919247395004D4352 /* ProductHuntTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4990A819247395004D4352 /* ProductHuntTests.m */; };
-		8E543022192D29D800CC393B /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E543021192D29D800CC393B /* TableViewController.m */; };
+		8E543022192D29D800CC393B /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E543021192D29D800CC393B /* MainTableViewController.m */; };
 		8E589096192D978A00F8C893 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E589095192D978A00F8C893 /* CommentsViewController.m */; };
 		8E943788192BB1560098E4F9 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E943787192BB1560098E4F9 /* Post.m */; };
 		8E94378E192BB8130098E4F9 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E94378D192BB8130098E4F9 /* WebViewController.m */; };
@@ -40,6 +41,8 @@
 
 /* Begin PBXFileReference section */
 		4EFEA800C8C1424A98C00080 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E1F4D6E193A5208000B5588 /* RootPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootPageViewController.h; sourceTree = "<group>"; };
+		8E1F4D6F193A5208000B5588 /* RootPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootPageViewController.m; sourceTree = "<group>"; };
 		8E49907A19247394004D4352 /* ProductHunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProductHunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E49907D19247394004D4352 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8E49907F19247394004D4352 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -57,8 +60,8 @@
 		8E4990A419247395004D4352 /* ProductHuntTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProductHuntTests-Info.plist"; sourceTree = "<group>"; };
 		8E4990A619247395004D4352 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8E4990A819247395004D4352 /* ProductHuntTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductHuntTests.m; sourceTree = "<group>"; };
-		8E543020192D29D800CC393B /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
-		8E543021192D29D800CC393B /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		8E543020192D29D800CC393B /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
+		8E543021192D29D800CC393B /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
 		8E589094192D978A00F8C893 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentsViewController.h; path = ../CommentsViewController.h; sourceTree = "<group>"; };
 		8E589095192D978A00F8C893 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentsViewController.m; path = ../CommentsViewController.m; sourceTree = "<group>"; };
 		8E943786192BB1560098E4F9 /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
@@ -143,8 +146,10 @@
 				8E94378D192BB8130098E4F9 /* WebViewController.m */,
 				8E9AFBAB193680EA00B2C2FF /* FavoritesTableViewController.h */,
 				8E9AFBAC193680EA00B2C2FF /* FavoritesTableViewController.m */,
-				8E543020192D29D800CC393B /* TableViewController.h */,
-				8E543021192D29D800CC393B /* TableViewController.m */,
+				8E543020192D29D800CC393B /* MainTableViewController.h */,
+				8E543021192D29D800CC393B /* MainTableViewController.m */,
+				8E1F4D6E193A5208000B5588 /* RootPageViewController.h */,
+				8E1F4D6F193A5208000B5588 /* RootPageViewController.m */,
 				8E49909519247394004D4352 /* Images.xcassets */,
 				8E49908419247394004D4352 /* Supporting Files */,
 			);
@@ -312,8 +317,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E543022192D29D800CC393B /* TableViewController.m in Sources */,
+				8E543022192D29D800CC393B /* MainTableViewController.m in Sources */,
 				8E94378E192BB8130098E4F9 /* WebViewController.m in Sources */,
+				8E1F4D70193A5208000B5588 /* RootPageViewController.m in Sources */,
 				8E589096192D978A00F8C893 /* CommentsViewController.m in Sources */,
 				8E49908E19247394004D4352 /* AppDelegate.m in Sources */,
 				8E9AFBAD193680EA00B2C2FF /* FavoritesTableViewController.m in Sources */,

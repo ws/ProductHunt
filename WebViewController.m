@@ -30,7 +30,7 @@
     [self.webView loadRequest:request];
     self.webView.scalesPageToFit = YES;
 
-    if (YES)                                                                                                     //NJKFullScreen
+    if (NO)                                                                                                     //NJKFullScreen
     {
         _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];
         self.webView.scrollView.delegate = (id)_scrollProxy;
