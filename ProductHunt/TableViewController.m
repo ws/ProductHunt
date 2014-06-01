@@ -25,13 +25,13 @@
 @property NSIndexPath *choosenCellPath;
 @property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
 @property NSMutableArray *savedPosts;
+@property BOOL firstTimeLoad;
 @end
 
 @implementation TableViewController
 
 - (void)viewDidLoad
 {
-    NSLog(@"View Did Load");
     [super viewDidLoad];
     [self getData];
     [self updateTable];
@@ -146,11 +146,22 @@
     cell.detailTextLabel.numberOfLines = 2;
     cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
+
     if (NO)
     {
         NSURL *imageURL = [NSURL URLWithString:post.imageLink];
         NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
         cell.imageView.image = [UIImage imageWithData:imageData];
+
+        //--------------------
+
+        [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:post.imageLink]]
+                                           queue:[NSOperationQueue mainQueue]
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+         {
+             cell.imageView.image = [UIImage imageWithData:data];
+         }];
+
     }
 
     return cell;
@@ -293,7 +304,6 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"Reloading Data");
     [self getData];
     [self.tableView reloadData];                                                                                //May be unnecessary
 
