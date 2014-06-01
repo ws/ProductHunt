@@ -9,12 +9,14 @@
 #import "WebViewController.h"
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
+#import "SuProgress.h"
 
 @interface WebViewController () <UIWebViewDelegate,
                                 UIScrollViewDelegate,                                                           //NJKFullScreen
                                 NJKScrollFullscreenDelegate>                                                    //NJKFullScreen
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
 @property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
 @end
 
@@ -25,12 +27,14 @@
     [super viewDidLoad];
     self.title = self.post.title;
 
+//    [self SuProgressForWebView:self.webView];
+
     NSURL *url = [NSURL URLWithString:self.post.productLink];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:request];
     self.webView.scalesPageToFit = YES;
 
-    if (YES)                                                                                                     //NJKFullScreen
+    if (NO)                                                                                                     //NJKFullScreen
     {
         _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];
         self.webView.scrollView.delegate = (id)_scrollProxy;
@@ -67,16 +71,19 @@
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [self.activityView startAnimating];
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [self.activityView stopAnimating];
 }
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [self.activityView stopAnimating];
     NSLog(@"Error: %@", error);
 }
 

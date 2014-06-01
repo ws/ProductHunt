@@ -9,6 +9,7 @@
 #import "CommentsViewController.h"
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
+#import "SuProgress.h"
 
 @interface CommentsViewController () <UIWebViewDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate>     //NJKFullScreen (last 2)
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -22,6 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self SuProgressForWebView:self.webView];
 
     self.backButton.enabled = NO;
     NSURL *url = [NSURL URLWithString:self.post.commentLink];
@@ -95,6 +97,7 @@
     [super viewWillDisappear:animated];
     [self.webView stopLoading];
     self.webView.delegate = nil;
+    [self SuProgressForWebView:nil];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 

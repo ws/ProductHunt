@@ -28,7 +28,7 @@
     [super viewDidLoad];
     [self getData];
 
-    if (self.savedPosts.count > 10)                                                                             //NJKFullScreen
+    if (NO)                                                                             //NJKFullScreen
     {                                                                                                           //NJKFullScreen
         _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
         self.tableView.delegate = (id)_scrollProxy;                                                             //NJKFullScreen

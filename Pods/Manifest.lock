@@ -1,20 +1,16 @@
 PODS:
   - NJKScrollFullScreen (0.2.2)
-  - NJKWebViewProgress (0.2.3):
-    - NJKWebViewProgress/Core
-    - NJKWebViewProgress/ProgressView
-  - NJKWebViewProgress/Core (0.2.3)
-  - NJKWebViewProgress/ProgressView (0.2.3)
+  - SuProgress (0.8.1)
   - SWTableViewCell (0.3.0)
 
 DEPENDENCIES:
   - NJKScrollFullScreen
-  - NJKWebViewProgress
+  - SuProgress
   - SWTableViewCell
 
 SPEC CHECKSUMS:
   NJKScrollFullScreen: 226315cb870d997910f48614a613e7b95b9550d4
-  NJKWebViewProgress: 721b57080c840c76f70ff6c2dda4f836ee1b27c1
+  SuProgress: b4e7347250f759a2b7672820687754833896f01c
   SWTableViewCell: 1725f7607ce4c154264c18aeb78e4636b11b0b29
 
 COCOAPODS: 0.33.1

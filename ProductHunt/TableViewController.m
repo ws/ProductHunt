@@ -16,9 +16,13 @@
 #import "SWTableViewCell.h"
 #import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
 #import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
+
 @import Twitter;
 
-@interface TableViewController () <UIAlertViewDelegate, SWTableViewCellDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate> //NJK (last 2)
+@interface TableViewController () <UIAlertViewDelegate,
+                                   SWTableViewCellDelegate,
+                                   UIScrollViewDelegate,                                                        //NJKFullScreen
+                                   NJKScrollFullscreenDelegate>                                                 //NJKFullScreen
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property NSMutableArray *posts;
@@ -44,7 +48,7 @@
     [refresh addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
 
-    if (YES)                                                                                                     //NJKFullScreen
+    if (NO)                                                                                                     //NJKFullScreen
     {                                                                                                           //NJKFullScreen
         _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
         self.tableView.delegate = (id)_scrollProxy;                                                             //NJKFullScreen
