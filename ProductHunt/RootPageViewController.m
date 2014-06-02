@@ -9,14 +9,10 @@
 #import "RootPageViewController.h"
 #import "MainTableViewController.h"
 #import "FavoritesTableViewController.h"
-#import "TestViewController.h"
-#import "TestTwoViewController.h"
 
-@interface RootPageViewController () <UIPageViewControllerDataSource>
+@interface RootPageViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 @property MainTableViewController *mainTableViewController;
 @property FavoritesTableViewController *favoritesTableViewController;
-@property TestViewController *testViewController;
-@property TestTwoViewController *testTwoViewController;
 @end
 
 @implementation RootPageViewController
@@ -24,96 +20,56 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"Product Hunt";
     self.dataSource = self;
+    self.delegate = self;
     [self setupScene];
-//    [self setupNavScene];
     [self setupPageControl];
 }
 
-//- (void)setupNavScene
-//{
-//    UINavigationController *navM = [self.storyboard instantiateViewControllerWithIdentifier:@"navM"];
-//    UINavigationController *navF = [self.storyboard instantiateViewControllerWithIdentifier:@"navF"];
-//
-//    [self setViewControllers:@[navM]
-//                   direction:UIPageViewControllerNavigationDirectionForward
-//                    animated:NO
-//                  completion:nil];
-//
-//    [self addChildViewController:navF];
-//    NSLog(@"%@",self.childViewControllers);
-//}
-
 - (void)setupScene
 {
-//    self.mainTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTableViewController"];
-//    self.FavoritesTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoritesTableViewController"];
+    self.mainTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTableViewController"];
+    self.FavoritesTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoritesTableViewController"];
 
-
-    self.testViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TestViewController"];
-    self.testTwoViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TestTwoViewController"];
-
-    [self setViewControllers:@[self.testViewController]
+    [self setViewControllers:@[self.mainTableViewController]
                    direction:UIPageViewControllerNavigationDirectionForward
                     animated:NO
                   completion:nil];
 
-    [self addChildViewController:self.testTwoViewController];
+    [self addChildViewController:self.favoritesTableViewController];
 }
 
 - (void)setupPageControl
 {
-//    UIPageControl *pageControl = [UIPageControl appearance];
-//    pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
-//    pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
-//    pageControl.backgroundColor = [UIColor whiteColor];
+    UIPageControl *pageControl = [UIPageControl appearance];
+    pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+    pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
+    pageControl.backgroundColor = [UIColor whiteColor];
+
+
+//    self.navigationItem.titleView = [[]];
 }
 
 #pragma mark - Page View Controller Data Source
 
-//- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
-//{
-//    return 0;
-//}
-//
-//- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
-//{
-//    return 2;
-//}
+- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
+{
+    return 0;
+}
 
-
-//-(UIViewController *)pageViewController:(UIPageViewController *)pageViewController
-//     viewControllerBeforeViewController:(UIViewController *)viewController
-//{
-//    if ([viewController isKindOfClass:[FavoritesTableViewController class]])
-//    {
-//        return self.childViewControllers[0];
-//    }
-//    else
-//    {
-//        return nil;
-//    }
-//}
-//
-//-(UIViewController *)pageViewController:(UIPageViewController *)pageViewController
-//      viewControllerAfterViewController:(UIViewController *)viewController
-//{
-//    if ([viewController isKindOfClass:[MainTableViewController class]])
-//    {
-//        return self.childViewControllers[1];
-//    }
-//    else
-//    {
-//        return nil;
-//    }
-//}
+- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
+{
+    return 2;
+}
 
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController
      viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    if ([viewController isKindOfClass:[TestTwoViewController class]])
+    if ([viewController isKindOfClass:[FavoritesTableViewController class]])
     {
+        self.title = @"Product Hunt";
         return self.childViewControllers[0];
     }
     else
@@ -125,13 +81,25 @@
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController
       viewControllerAfterViewController:(UIViewController *)viewController
 {
-    if ([viewController isKindOfClass:[TestViewController class]])
+    if ([viewController isKindOfClass:[MainTableViewController class]])
     {
         return self.childViewControllers[1];
     }
     else
     {
         return nil;
+    }
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+{
+    if ([previousViewControllers[0] isKindOfClass:[FavoritesTableViewController class]])
+    {
+        self.title = @"Product Hunt";
+    }
+    else
+    {
+        self.title = @"Favorites";
     }
 }
 

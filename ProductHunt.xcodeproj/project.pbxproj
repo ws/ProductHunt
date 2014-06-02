@@ -23,8 +23,6 @@
 		8E4990A919247395004D4352 /* ProductHuntTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4990A819247395004D4352 /* ProductHuntTests.m */; };
 		8E543022192D29D800CC393B /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E543021192D29D800CC393B /* MainTableViewController.m */; };
 		8E589096192D978A00F8C893 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E589095192D978A00F8C893 /* CommentsViewController.m */; };
-		8E6F47E3193D13B8008A2FF5 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F47E2193D13B8008A2FF5 /* TestViewController.m */; };
-		8E6F47E6193D171A008A2FF5 /* TestTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F47E5193D171A008A2FF5 /* TestTwoViewController.m */; };
 		8E943788192BB1560098E4F9 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E943787192BB1560098E4F9 /* Post.m */; };
 		8E94378E192BB8130098E4F9 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E94378D192BB8130098E4F9 /* WebViewController.m */; };
 		8E9AFBAD193680EA00B2C2FF /* FavoritesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9AFBAC193680EA00B2C2FF /* FavoritesTableViewController.m */; };
@@ -66,10 +64,6 @@
 		8E543021192D29D800CC393B /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
 		8E589094192D978A00F8C893 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentsViewController.h; path = ../CommentsViewController.h; sourceTree = "<group>"; };
 		8E589095192D978A00F8C893 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentsViewController.m; path = ../CommentsViewController.m; sourceTree = "<group>"; };
-		8E6F47E1193D13B8008A2FF5 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		8E6F47E2193D13B8008A2FF5 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
-		8E6F47E4193D171A008A2FF5 /* TestTwoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTwoViewController.h; sourceTree = "<group>"; };
-		8E6F47E5193D171A008A2FF5 /* TestTwoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTwoViewController.m; sourceTree = "<group>"; };
 		8E943786192BB1560098E4F9 /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
 		8E943787192BB1560098E4F9 /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
 		8E94378C192BB8130098E4F9 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = ../WebViewController.h; sourceTree = "<group>"; };
@@ -140,10 +134,6 @@
 		8E49908319247394004D4352 /* ProductHunt */ = {
 			isa = PBXGroup;
 			children = (
-				8E6F47E1193D13B8008A2FF5 /* TestViewController.h */,
-				8E6F47E2193D13B8008A2FF5 /* TestViewController.m */,
-				8E6F47E4193D171A008A2FF5 /* TestTwoViewController.h */,
-				8E6F47E5193D171A008A2FF5 /* TestTwoViewController.m */,
 				8E9CCC641933F9FA00D5A3A9 /* Podfile */,
 				8E49908C19247394004D4352 /* AppDelegate.h */,
 				8E49908D19247394004D4352 /* AppDelegate.m */,
@@ -328,13 +318,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E543022192D29D800CC393B /* MainTableViewController.m in Sources */,
-				8E6F47E6193D171A008A2FF5 /* TestTwoViewController.m in Sources */,
 				8E94378E192BB8130098E4F9 /* WebViewController.m in Sources */,
 				8E1F4D70193A5208000B5588 /* RootPageViewController.m in Sources */,
 				8E589096192D978A00F8C893 /* CommentsViewController.m in Sources */,
 				8E49908E19247394004D4352 /* AppDelegate.m in Sources */,
 				8E9AFBAD193680EA00B2C2FF /* FavoritesTableViewController.m in Sources */,
-				8E6F47E3193D13B8008A2FF5 /* TestViewController.m in Sources */,
 				8E49908A19247394004D4352 /* main.m in Sources */,
 				8E943788192BB1560098E4F9 /* Post.m in Sources */,
 			);
