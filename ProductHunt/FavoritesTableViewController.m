@@ -51,6 +51,11 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self setData];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -129,8 +134,6 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    //    [super viewWillAppear:animated];
-
     NSIndexPath *selection = [self.tableView indexPathForSelectedRow];
     if (selection)
     {
@@ -142,7 +145,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     return 63; // 44 is Normal height
 }
 
