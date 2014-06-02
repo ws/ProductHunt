@@ -91,8 +91,15 @@
                             <outlet property="delegate" destination="Mrf-pK-lkK" id="AHb-g3-QBw"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Favorites" id="ghk-MS-RNb"/>
+                    <navigationItem key="navigationItem" title="Favorites" id="ghk-MS-RNb">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="hf5-VZ-qqd">
+                            <connections>
+                                <action selector="onPressEditButton:" destination="Mrf-pK-lkK" id="wu4-GV-YBq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="editButton" destination="hf5-VZ-qqd" id="W2k-4A-xrC"/>
                         <outlet property="tableView" destination="wDa-cx-72Z" id="v3D-8j-6ms"/>
                     </connections>
                 </tableViewController>
@@ -265,7 +272,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="L1j-fs-Ngd"/>
         <segue reference="fpc-YR-rvK"/>
-        <segue reference="7GB-OR-Vsu"/>
     </inferredMetricsTieBreakers>
 </document>

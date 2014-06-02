@@ -14,6 +14,7 @@
 #import "Post.h"
 
 @interface FavoritesTableViewController ()
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property NSMutableArray *savedPosts;
 @end
@@ -70,6 +71,20 @@
     cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
     return cell;
+}
+
+- (IBAction)onPressEditButton:(id)sender
+{
+    if ([self.tableView isEditing])
+    {
+        [self.tableView setEditing:NO animated:YES];
+        [self.editButton setTitle:@"Edit"];
+    }
+    else
+    {
+        [self.tableView setEditing:YES animated:YES];
+        [self.editButton setTitle:@"Done"];
+    }
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
