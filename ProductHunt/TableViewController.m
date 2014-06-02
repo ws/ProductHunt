@@ -19,7 +19,6 @@
 
 @interface TableViewController () <UIAlertViewDelegate, SWTableViewCellDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property NSMutableArray *posts;
 @property NSIndexPath *choosenCellPath;
 @property NSMutableArray *savedPosts;
@@ -35,7 +34,6 @@
     [self updateTable];
     self.clearsSelectionOnViewWillAppear = YES;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    [self.activityIndicator stopAnimating];
 
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.tintColor = [UIColor orangeColor];

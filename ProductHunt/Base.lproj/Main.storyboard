@@ -115,11 +115,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <activityIndicatorView key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" id="xZv-bo-cJo">
-                            <rect key="frame" x="0.0" y="130" width="320" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="color" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="7Qy-cl-Bhw" detailTextLabel="nJW-mt-A7S" style="IBUITableViewCellStyleSubtitle" id="G9W-V3-Acz" customClass="SWTableViewCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
@@ -160,7 +155,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="xZv-bo-cJo" id="6ha-H9-Lq9"/>
                         <outlet property="tableView" destination="MCE-sH-xqm" id="Oev-Hi-QCf"/>
                         <segue destination="CTn-So-qko" kind="modal" identifier="CommentSegue" id="SfZ-0c-ctA"/>
                         <segue destination="aOl-wZ-ege" kind="push" identifier="WebDetailSegue" id="7GB-OR-Vsu"/>
@@ -271,7 +265,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="L1j-fs-Ngd"/>
-        <segue reference="fpc-YR-rvK"/>
+        <segue reference="7GB-OR-Vsu"/>
+        <segue reference="SfZ-0c-ctA"/>
     </inferredMetricsTieBreakers>
 </document>
