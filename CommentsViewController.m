@@ -7,14 +7,11 @@
 //
 
 #import "CommentsViewController.h"
-#import "NJKScrollFullscreen.h"                                                                                 //NJKFullScreen
-#import "UIViewController+NJKFullScreenSupport.h"                                                               //NJKFullScreen
 
-@interface CommentsViewController () <UIWebViewDelegate, UIScrollViewDelegate, NJKScrollFullscreenDelegate>     //NJKFullScreen (last 2)
+@interface CommentsViewController () <UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
-@property NJKScrollFullScreen *scrollProxy;                                                                     //NJKFullScreen
 @end
 
 @implementation CommentsViewController
@@ -28,36 +25,6 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:request];
     self.webView.scalesPageToFit = YES;
-
-    if (NO)                                                                                                     //NJKFullScreen
-    {                                                                                                           //NJKFullScreen
-        _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];                                //NJKFullScreen
-        self.webView.scrollView.delegate = (id)_scrollProxy;                                                    //NJKFullScreen
-        _scrollProxy.delegate = self;                                                                           //NJKFullScreen
-    }                                                                                                           //NJKFullScreen
-}
-
-#pragma mark -
-#pragma mark NJKFullScreen Pod Delegate Methods
-
-- (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollUp:(CGFloat)deltaY
-{
-    [self moveNavigtionBar:deltaY animated:YES];
-}
-
-- (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollDown:(CGFloat)deltaY
-{
-    [self moveNavigtionBar:deltaY animated:YES];
-}
-
-- (void)scrollFullScreenScrollViewDidEndDraggingScrollUp:(NJKScrollFullScreen *)proxy
-{
-    [self hideNavigationBar:YES];
-}
-
-- (void)scrollFullScreenScrollViewDidEndDraggingScrollDown:(NJKScrollFullScreen *)proxy
-{
-    [self showNavigationBar:YES];
 }
 
 #pragma mark -
