@@ -207,7 +207,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="stop" id="y0p-nS-ucN">
                             <connections>
-                                <segue destination="c7j-vF-Q0A" kind="unwind" unwindAction="unwind:" id="obY-zE-wfR"/>
+                                <action selector="onCancelPress:" destination="MOX-AV-Mpn" id="sTD-cr-BzN"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -219,7 +219,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lof-VG-lgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="c7j-vF-Q0A" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1981" y="629"/>
         </scene>

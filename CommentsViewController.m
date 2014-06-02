@@ -75,6 +75,13 @@
     [self.webView goBack];
 }
 
+- (IBAction)onCancelPress:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        nil;
+    }];
+}
+
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (event.subtype == UIEventSubtypeMotionShake)
