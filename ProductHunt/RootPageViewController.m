@@ -9,10 +9,14 @@
 #import "RootPageViewController.h"
 #import "MainTableViewController.h"
 #import "FavoritesTableViewController.h"
+#import "TestViewController.h"
+#import "TestTwoViewController.h"
 
 @interface RootPageViewController () <UIPageViewControllerDataSource>
 @property MainTableViewController *mainTableViewController;
 @property FavoritesTableViewController *favoritesTableViewController;
+@property TestViewController *testViewController;
+@property TestTwoViewController *testTwoViewController;
 @end
 
 @implementation RootPageViewController
@@ -42,15 +46,19 @@
 
 - (void)setupScene
 {
-    self.mainTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTableViewController"];
-    self.favoritesTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoritesTableViewController"];
+//    self.mainTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTableViewController"];
+//    self.FavoritesTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoritesTableViewController"];
 
-    [self setViewControllers:@[self.mainTableViewController]
+
+    self.testViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TestViewController"];
+    self.testTwoViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TestTwoViewController"];
+
+    [self setViewControllers:@[self.testViewController]
                    direction:UIPageViewControllerNavigationDirectionForward
                     animated:NO
                   completion:nil];
 
-    [self addChildViewController:self.favoritesTableViewController];
+    [self addChildViewController:self.testTwoViewController];
 }
 
 - (void)setupPageControl
@@ -73,10 +81,38 @@
 //    return 2;
 //}
 
+
+//-(UIViewController *)pageViewController:(UIPageViewController *)pageViewController
+//     viewControllerBeforeViewController:(UIViewController *)viewController
+//{
+//    if ([viewController isKindOfClass:[FavoritesTableViewController class]])
+//    {
+//        return self.childViewControllers[0];
+//    }
+//    else
+//    {
+//        return nil;
+//    }
+//}
+//
+//-(UIViewController *)pageViewController:(UIPageViewController *)pageViewController
+//      viewControllerAfterViewController:(UIViewController *)viewController
+//{
+//    if ([viewController isKindOfClass:[MainTableViewController class]])
+//    {
+//        return self.childViewControllers[1];
+//    }
+//    else
+//    {
+//        return nil;
+//    }
+//}
+
+
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController
      viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    if ([viewController isKindOfClass:[FavoritesTableViewController class]])
+    if ([viewController isKindOfClass:[TestTwoViewController class]])
     {
         return self.childViewControllers[0];
     }
@@ -89,7 +125,7 @@
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController
       viewControllerAfterViewController:(UIViewController *)viewController
 {
-    if ([viewController isKindOfClass:[MainTableViewController class]])
+    if ([viewController isKindOfClass:[TestViewController class]])
     {
         return self.childViewControllers[1];
     }
