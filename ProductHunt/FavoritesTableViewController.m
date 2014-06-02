@@ -1,4 +1,4 @@
-// 
+//  
 //  FavoritesTableViewController.m
 //  ProductHunt
 //
