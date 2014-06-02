@@ -53,6 +53,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [super viewDidDisappear:animated];
     [self setData];
 }
 
@@ -134,6 +135,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     NSIndexPath *selection = [self.tableView indexPathForSelectedRow];
     if (selection)
     {

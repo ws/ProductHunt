@@ -33,9 +33,6 @@
 
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:shareButton, composeButton, nil];
 
-
-//    [self SuProgressForWebView:self.webView];
-
     NSURL *url = [NSURL URLWithString:self.post.productLink];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:request];
@@ -71,14 +68,23 @@
     }
 }
 
-#pragma mark - Kill Web Load on View Change
+#pragma mark - Web Load View Change Handling
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+//    [self SuProgressForWebView:self.webView];
+}
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self.webView stopLoading];
     self.webView.delegate = nil;
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
+//    [self SuProgressForWebView:nil];
 }
 
 #pragma mark - Share

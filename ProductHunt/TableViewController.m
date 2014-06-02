@@ -58,7 +58,7 @@
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
      {
-         //start load activity indicator
+
          NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&connectionError];
          NSArray *collection1 = output[@"results"][@"collection1"];
 
@@ -109,24 +109,6 @@
     cell.detailTextLabel.textColor = [UIColor grayColor];
     cell.detailTextLabel.numberOfLines = 2;
     cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-
-
-    if (NO)
-    {
-        NSURL *imageURL = [NSURL URLWithString:post.imageLink];
-        NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-        cell.imageView.image = [UIImage imageWithData:imageData];
-
-        //--------------------
-
-        [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:post.imageLink]]
-                                           queue:[NSOperationQueue mainQueue]
-                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-         {
-             cell.imageView.image = [UIImage imageWithData:data];
-         }];
-
-    }
 
     return cell;
 }
@@ -225,7 +207,6 @@
     }
 }
 
-// prevent multiple cells from showing utilty buttons simultaneously
 - (BOOL)swipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(SWTableViewCell *)cell
 {
     return true;
@@ -265,6 +246,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self getData];
     [self.tableView reloadData];                                                                                //May be unnecessary
 
