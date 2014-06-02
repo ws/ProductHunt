@@ -29,8 +29,7 @@
     self.webView.scalesPageToFit = YES;
 }
 
-#pragma mark -
-#pragma mark WebView Delegate Methods
+#pragma mark - WebView Delegate Methods
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
@@ -56,8 +55,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
-#pragma mark -
-#pragma mark Kill Web Load on View Change
+#pragma mark - Kill Web Load on View Change
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -68,7 +66,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
-#pragma mark -
+#pragma mark - Buttons
 
 - (IBAction)onBackPress:(id)sender
 {
@@ -80,14 +78,6 @@
     [self dismissViewControllerAnimated:YES completion:^{
         nil;
     }];
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    if (event.subtype == UIEventSubtypeMotionShake)
-    {
-//        [self.webView reload];
-    }
 }
 
 @end

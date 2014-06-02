@@ -27,8 +27,7 @@
     [self getData];
 }
 
-#pragma mark -
-#pragma mark Persistence
+#pragma mark - Persistence
 
 - (void)getData
 {
@@ -115,8 +114,7 @@
     return YES;
 }
 
-#pragma mark -
-#pragma mark Segue
+#pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -127,8 +125,7 @@
     }
 }
 
-#pragma mark -
-#pragma mark Deselection fix
+#pragma mark - Deselection fix
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -141,8 +138,7 @@
     }
 }
 
-#pragma mark -
-#pragma mark Cell Height
+#pragma mark - Cell Height
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

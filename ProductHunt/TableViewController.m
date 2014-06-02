@@ -43,8 +43,7 @@
     self.refreshControl = refresh;
 }
 
-#pragma mark -
-#pragma mark Fetch Data from API & Update Table
+#pragma mark - Fetch Data from API & Update Table
 
 - (void)updateTable
 {
@@ -84,8 +83,7 @@
      }];
 }
 
-#pragma mark -
-#pragma mark Required Table View Methods
+#pragma mark - Required Table View Methods
 
 -  (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -135,8 +133,7 @@
     return cell;
 }
 
-#pragma mark -
-#pragma mark Custom Methods for on Swipe Buttons
+#pragma mark - Custom Methods for on Swipe Buttons
 
 - (NSArray *)leftButtonsGrey:(Post *)post
 {
@@ -236,8 +233,7 @@
     return true;
 }
 
-#pragma mark -
-#pragma mark Persistence
+#pragma mark - Persistence
 
 - (void)getData
 {
@@ -261,8 +257,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-#pragma mark -
-#pragma mark Segue / Transitions
+#pragma mark - Segue / Transitions
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -307,8 +302,7 @@
 {
 }
 
-#pragma mark -
-#pragma mark Cell Height
+#pragma mark - Cell Height
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -316,8 +310,7 @@
     return 63; // 44 is Normal height
 }
 
-#pragma mark -
-#pragma mark Check if saved
+#pragma mark - Check if saved
 
 - (BOOL)isSaved:(Post *)postToCheck
 {
@@ -330,6 +323,5 @@
     }
     return false;
 }
-
 
 @end

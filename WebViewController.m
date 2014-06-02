@@ -42,8 +42,7 @@
     self.webView.scalesPageToFit = YES;
 }
 
-#pragma mark -
-#pragma mark WebView Delegate Methods
+#pragma mark - WebView Delegate Methods
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
@@ -72,8 +71,7 @@
     }
 }
 
-#pragma mark -
-#pragma mark Kill Web Load on View Change
+#pragma mark - Kill Web Load on View Change
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -83,8 +81,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
-#pragma mark -
-#pragma mark Share
+#pragma mark - Share
 
 - (void)share
 {
