@@ -13,7 +13,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-    self.window.backgroundColor = [UIColor orangeColor];
+//    self.window.backgroundColor = [UIColor orangeColor];
+    self.window.backgroundColor = [UIColor grayColor];
 
     return YES;
 }

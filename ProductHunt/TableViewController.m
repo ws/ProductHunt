@@ -119,7 +119,7 @@
 {
     NSMutableArray *leftUtilityButtons = [NSMutableArray new];
 
-    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:0.50f green:0.50f blue:0.50f alpha:1.0]
+    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor grayColor]
                                                 icon:[UIImage imageNamed:@"smallstar.png"]];
 
     [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1.0]
