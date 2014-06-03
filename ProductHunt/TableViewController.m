@@ -135,7 +135,7 @@
 {
     NSMutableArray *leftUtilityButtons = [NSMutableArray new];
 
-    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:255/255.0f green:147/255.0f blue:39/255.0f alpha:1.0f]
+    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor orangeColor]
                                                 icon:[UIImage imageNamed:@"smallstar.png"]];
 
     [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1.0]
@@ -247,14 +247,25 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self getData];
-    [self.tableView reloadData];                                                                                //May be unnecessary
 
     NSIndexPath *selection = [self.tableView indexPathForSelectedRow];
     if (selection)
     {
         [self.tableView deselectRowAtIndexPath:selection animated:YES];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self getData];
+    [self.tableView reloadData];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self setData];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

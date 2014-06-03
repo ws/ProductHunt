@@ -12,7 +12,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    [[UINavigationBar appearance] setTintColor:[UIColor orangeColor]];
+
+    self.window.backgroundColor = [UIColor orangeColor];
+
     return YES;
 }
 							

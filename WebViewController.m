@@ -22,7 +22,6 @@
     [super viewDidLoad];
     self.title = self.post.title;
 
-
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                                   target:self
                                                                                   action:@selector(share)];
@@ -70,21 +69,12 @@
 
 #pragma mark - Web Load View Change Handling
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-
-//    [self SuProgressForWebView:self.webView];
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self.webView stopLoading];
     self.webView.delegate = nil;
-
-//    [self SuProgressForWebView:nil];
 }
 
 #pragma mark - Share

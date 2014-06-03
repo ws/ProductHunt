@@ -51,9 +51,9 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewDidDisappear:animated];
+    [super viewWillDisappear:animated];
     [self setData];
 }
 
@@ -135,13 +135,18 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-
     NSIndexPath *selection = [self.tableView indexPathForSelectedRow];
     if (selection)
     {
         [self.tableView deselectRowAtIndexPath:selection animated:YES];
     }
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self getData];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Cell Height

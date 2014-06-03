@@ -9,4 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface FavoritesTableViewController : UITableViewController
+@property int index;
 @end

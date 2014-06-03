@@ -4,7 +4,6 @@
 #import <UIKit/UIKit.h>
 @class AFHTTPRequestOperation;
 
-
 @interface UIViewController (SuProgress)
 
 /** Welcome to our magic function. Any NSURLConnections
