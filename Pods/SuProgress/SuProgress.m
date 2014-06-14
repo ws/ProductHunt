@@ -518,8 +518,8 @@ enum SuProgressBarViewState {
     loading++;
     cumulativeLoads++;
     
-    NSLog(@"didStartLoad: %d/%d", loading, cumulativeLoads);
-    
+//    NSLog(@"didStartLoad: %d/%d", loading, cumulativeLoads);
+
     if (!self.started) {
         self.started = YES;
     } else {
@@ -533,8 +533,8 @@ enum SuProgressBarViewState {
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     loading--;
-    NSLog(@"didFinishLoad: %d/%d", loading, cumulativeLoads);
-    
+//    NSLog(@"didFinishLoad: %d/%d", loading, cumulativeLoads);
+
     float f = (1.f/cumulativeLoads) * (0.8f - self.progress);  // NOTE can still go over, doh
     [self.delegate ogre:self progressed:f];
     self.progress += f;

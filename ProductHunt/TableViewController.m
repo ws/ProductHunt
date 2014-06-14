@@ -7,7 +7,7 @@
 //
 
 #define kFavoritesArray @"favoritesArray"
-#define kAPI @"http://www.kimonolabs.com/api/7n9nf8aa?apikey=e928b25b9f388d5950b6f620673e010b"
+#define kAPI @"http://hook-api.herokuapp.com/today"
 
 #import "TableViewController.h"
 #import "Post.h"
@@ -58,26 +58,36 @@
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
      {
-
-         NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&connectionError];
-         NSArray *collection1 = output[@"results"][@"collection1"];
-
-         for (NSDictionary *postBlock in collection1)
+         if (!connectionError)
          {
-             NSString *productLink = postBlock[@"property2"][@"href"];
-             NSString *title = postBlock[@"property2"][@"text"];
-             NSString *subtitle = postBlock[@"property3"];
-             NSString *commentLink = postBlock[@"property4"][@"href"];
-             NSString *imageLink = postBlock[@"property5"][@"src"];
+             NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&connectionError];
+             NSArray *hunts = output[@"hunts"];
 
-             Post *post = [[Post alloc] initWithproductLink:productLink
-                                                      title:title
-                                                   subtitle:subtitle
-                                                  imageLink:imageLink
-                                                commentLink:commentLink];
-             [self.posts addObject:post];
+             for (NSDictionary *hunt in hunts)
+             {
+                 NSString *productLink = hunt[@"url"];
+                 NSString *title = hunt[@"title"];
+                 NSString *subtitle = hunt[@"tagline"];
+                 NSString *commentLink = [NSString stringWithFormat:@"http://www.producthunt.com/%@", hunt[@"permalink"]];
+                 NSString *imageLink = nil;
+
+                 Post *post = [[Post alloc] initWithproductLink:productLink
+                                                          title:title
+                                                       subtitle:subtitle
+                                                      imageLink:imageLink
+                                                    commentLink:commentLink];
+                 [self.posts addObject:post];
+             }
+             [self.tableView reloadData];
          }
-         [self.tableView reloadData];
+         else
+         {
+             UIAlertView *alert = [[UIAlertView alloc] init];
+             alert.title = @"Error Retrieving Data";
+             alert.message = @"Please check your internet connection";
+             [alert addButtonWithTitle:@"Dismiss"];
+             [alert show];
+         }
      }];
 }
 
@@ -248,7 +258,7 @@
 {
     [super viewWillAppear:animated];
     [self getData];
-    [self.tableView reloadData];                                                                                //May be unnecessary
+    [self.tableView reloadData];
 
     NSIndexPath *selection = [self.tableView indexPathForSelectedRow];
     if (selection)
@@ -274,7 +284,7 @@
     }
     else
     {
-        //Segue to FavoritesTableViewController.m"
+        //Button Segue to FavoritesTableViewController.m"
     }
 }
 
