@@ -7,7 +7,7 @@
 //
 
 #define kFavoritesArray @"favoritesArray"
-#define kAPI @"http://hook-api.herokuapp.com/today"
+#define kAPI @"http://producthuntios.herokuapp.com/today"
 
 #import "TableViewController.h"
 #import "Post.h"
