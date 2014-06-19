@@ -7,7 +7,8 @@
 //
 
 #define kFavoritesArray @"favoritesArray"
-#define kAPI @"http://producthuntios.herokuapp.com/today"
+#define kAPI @"http://hook-api.herokuapp.com/today"
+//#define kAPI @"http://producthuntios.herokuapp.com/today"     //NOT WOKRING :(
 
 #import "TableViewController.h"
 #import "Post.h"
@@ -78,13 +79,14 @@
                                                     commentLink:commentLink];
                  [self.posts addObject:post];
              }
+
              [self.tableView reloadData];
          }
          else
          {
              UIAlertView *alert = [[UIAlertView alloc] init];
              alert.title = @"Error Retrieving Data";
-             alert.message = @"Please check your internet connection";
+             alert.message = @"Please check your internet connectionor for an app update (API might be broken)";
              [alert addButtonWithTitle:@"Dismiss"];
              [alert show];
          }
