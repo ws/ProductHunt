@@ -86,7 +86,7 @@
          {
              UIAlertView *alert = [[UIAlertView alloc] init];
              alert.title = @"Error Retrieving Data";
-             alert.message = @"Please check your internet connection for an app update (API might be broken)";
+             alert.message = @"Please check your internet connection & for an app update (API might be broken)";
              [alert addButtonWithTitle:@"Dismiss"];
              [alert show];
          }
