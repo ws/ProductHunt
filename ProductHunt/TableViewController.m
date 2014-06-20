@@ -69,7 +69,7 @@
                  NSString *productLink = hunt[@"url"];
                  NSString *title = hunt[@"title"];
                  NSString *subtitle = hunt[@"tagline"];
-                 NSString *commentLink = [NSString stringWithFormat:@"http://www.producthunt.com/%@", hunt[@"permalink"]];
+                 NSString *commentLink = [NSString stringWithFormat:@"http://www.producthunt.com%@", hunt[@"permalink"]];
                  NSString *imageLink = nil;
 
                  Post *post = [[Post alloc] initWithproductLink:productLink
