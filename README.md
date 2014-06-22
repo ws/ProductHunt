@@ -3,11 +3,13 @@ ProductHunt
 
 iOS App using [Karan](https://github.com/karan)'s awesome [API](https://github.com/karan/Hook)
 
+![1](https://raw.githubusercontent.com/sapanbhuta/ProductHunt/master/Screenshots/1.png)
 ![2](https://raw.githubusercontent.com/sapanbhuta/ProductHunt/master/Screenshots/2.png)
 ![3](https://raw.githubusercontent.com/sapanbhuta/ProductHunt/master/Screenshots/3.png)
 ![4](https://raw.githubusercontent.com/sapanbhuta/ProductHunt/master/Screenshots/4.png)
 ![5](https://raw.githubusercontent.com/sapanbhuta/ProductHunt/master/Screenshots/5.png)
 ![6](https://raw.githubusercontent.com/sapanbhuta/ProductHunt/master/Screenshots/6.png)
+![7](https://raw.githubusercontent.com/sapanbhuta/ProductHunt/master/Screenshots/7.png)
 
 Contributing
 ------------
