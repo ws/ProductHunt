@@ -24,7 +24,7 @@
                                     <outlet property="delegate" destination="aOl-wZ-ege" id="WTt-m3-tWi"/>
                                 </connections>
                             </webView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="xWu-B1-YlJ">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="xWu-B1-YlJ">
                                 <rect key="frame" x="142" y="265" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -34,7 +34,9 @@
                         <constraints>
                             <constraint firstItem="Djw-QX-K9T" firstAttribute="top" secondItem="fE3-V4-K1D" secondAttribute="top" id="63B-8W-Q8K"/>
                             <constraint firstItem="Djw-QX-K9T" firstAttribute="leading" secondItem="fE3-V4-K1D" secondAttribute="leading" id="7QQ-Ca-GvU"/>
+                            <constraint firstItem="xWu-B1-YlJ" firstAttribute="centerX" secondItem="Djw-QX-K9T" secondAttribute="centerX" id="8eD-Td-01B"/>
                             <constraint firstAttribute="trailing" secondItem="Djw-QX-K9T" secondAttribute="trailing" id="dFh-c6-V9s"/>
+                            <constraint firstItem="xWu-B1-YlJ" firstAttribute="top" secondItem="0EA-ey-FfF" secondAttribute="bottom" constant="201" id="gBq-aW-2UE"/>
                             <constraint firstAttribute="bottom" secondItem="Djw-QX-K9T" secondAttribute="bottom" id="qEC-kt-Nvu"/>
                         </constraints>
                     </view>

@@ -7,15 +7,13 @@
 //
 
 #define kFavoritesArray @"favoritesArray"
-#define kAPI @"http://hook-api.herokuapp.com/today"
-//#define kAPI @"http://producthuntios.herokuapp.com/today"     //NOT WOKRING :(
+#define kAPI @"http://salty-mountain-8993.herokuapp.com/today"
 
 #import "TableViewController.h"
 #import "Post.h"
 #import "WebViewController.h"
 #import "CommentsViewController.h"
 #import "SWTableViewCell.h"
-
 @import Twitter;
 
 @interface TableViewController () <UIAlertViewDelegate, SWTableViewCellDelegate>
