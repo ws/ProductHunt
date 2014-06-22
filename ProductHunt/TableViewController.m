@@ -18,6 +18,9 @@
 
 @interface TableViewController () <UIAlertViewDelegate, SWTableViewCellDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property NSTimer *loadTimer;
+@property BOOL doneLoading;
 @property NSMutableArray *posts;
 @property NSIndexPath *choosenCellPath;
 @property NSMutableArray *savedPosts;
@@ -45,13 +48,20 @@
 - (void)updateTable
 {
     [self getPostsFromApi];
-    [self.tableView reloadData];
-    [self.refreshControl endRefreshing];
 }
 
 - (void)getPostsFromApi
 {
+    self.doneLoading = false;
+    self.loadTimer = [NSTimer scheduledTimerWithTimeInterval:0.025
+                                                      target:self
+                                                    selector:@selector(timerCallback)
+                                                    userInfo:nil
+                                                     repeats:YES];
+    self.progressView.hidden = NO;
+
     self.posts = [[NSMutableArray alloc] init];
+    [self.tableView reloadData];
 
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kAPI]]
                                        queue:[NSOperationQueue mainQueue]
@@ -77,8 +87,10 @@
                                                     commentLink:commentLink];
                  [self.posts addObject:post];
              }
-
+             self.doneLoading = YES;
              [self.tableView reloadData];
+             self.progressView.hidden = YES;
+             [self.refreshControl endRefreshing];
          }
          else
          {
@@ -89,6 +101,18 @@
              [alert show];
          }
      }];
+}
+
+- (void)timerCallback
+{
+    if (self.doneLoading)
+    {
+        self.progressView.progress = 1;
+    }
+    else if (self.progressView.progress < 0.75)
+    {
+        self.progressView.progress += 0.01;
+    }
 }
 
 #pragma mark - Required Table View Methods
