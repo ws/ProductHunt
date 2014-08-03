@@ -450,6 +450,7 @@
 				INFOPLIST_FILE = "ProductHunt/ProductHunt-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -466,6 +467,7 @@
 				INFOPLIST_FILE = "ProductHunt/ProductHunt-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8A0F9630-B986-4374-AAC8-FE0ECEABCE91";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

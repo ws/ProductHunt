@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Gej-Vx-juo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Gej-Vx-juo">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -109,7 +109,7 @@
             </objects>
             <point key="canvasLocation" x="1264" y="-816"/>
         </scene>
-        <!--Table View Controller - Product Hunt-->
+        <!--Table View Controller - Today-->
         <scene sceneID="VJj-OB-SyM">
             <objects>
                 <tableViewController id="drU-fX-6Qe" customClass="TableViewController" sceneMemberID="viewController">
@@ -154,7 +154,7 @@
                             <outlet property="delegate" destination="drU-fX-6Qe" id="JGS-cT-zdA"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Product Hunt" id="yR6-gr-mye">
+                    <navigationItem key="navigationItem" title="Today" id="yR6-gr-mye">
                         <barButtonItem key="backBarButtonItem" title="Back" id="mo9-A1-7Dl"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="6Xj-tz-dK0">
                             <connections>

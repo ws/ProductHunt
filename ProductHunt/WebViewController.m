@@ -33,7 +33,8 @@
 
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:shareButton, composeButton, nil];
 
-    NSURL *url = [NSURL URLWithString:self.post.productLink];
+//    NSURL *url = [NSURL URLWithString:self.post.productLink];
+    NSURL *url = [NSURL URLWithString:self.post.commentLink];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:request];
     self.webView.scalesPageToFit = YES;
